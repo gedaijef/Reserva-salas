@@ -1,20 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservas de spot</title>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="../css/reservas.css">
+    <script src="../js/reservas.js" defer></script>
+
 </head>
+
 <body>
-    <div id="barra-lateral"><img src="../img/barra-lateral-aula_img.png" alt=""></div>
+    <div id="barra-lateral"></div>
     <main>
         <section>
             <h1 id="titleSpot">Reservar um spot</h1>
+            <p><a href="../index.html">Início</a> > Reservas</p>
+
+            <section>
+                <div class="wrapper">
+                    <header>
+                        <p class="current-date"></p>
+                        <div class="icons">
+                            <span id="prev" class="material-symbols-rounded">chevron_left</span>
+                            <span id="next" class="material-symbols-rounded">chevron_right</span>
+                        </div>
+                    </header>
+                    <div class="calendar">
+                        <ul class="weeks">
+                            <li>Sun</li>
+                            <li>Mon</li>
+                            <li>Tue</li>
+                            <li>Wed</li>
+                            <li>Thu</li>
+                            <li>Fri</li>
+                            <li>Sat</li>
+                        </ul>
+                        <ul class="days"></ul>
+                    </div>
+                </div>
+                <div class="salas">
+                    <div class="sala">
+                        <h1>777</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum deleniti a iusto saepe officiis
+                            veritatis, sunt dolores alias neque suscipit debitis architecto provident aperiam nulla
+                            error quam? Recusandae, assumenda molestiae.</p>
+                    </div>
+                </div>
+            </section>
         </section>
     </main>
     <div id="imgBaixo"><img src="../img/grafismo-J&F 2.png" alt="fundo"></div>
+
+
 </body>
+
+
+<script defer>
+
+</script>
+
 </html>

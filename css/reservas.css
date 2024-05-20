@@ -27,7 +27,6 @@ main {
     justify-content: center;
     align-items: center;
     display: flex;
-    text-align: center;
 }
 
 #titleSpot {
@@ -36,6 +35,7 @@ main {
     margin-bottom: 2rem;
     font-weight: 700;
     font-size: 2rem;
+    text-align: center;
 }
 
 #imgBaixo {
@@ -49,4 +49,120 @@ main {
     margin-bottom: 15px;
     margin-right: 15px;
     width: 19rem;
+}
+
+#barra-lateral>img {
+    height: 100vh;
+    float: left;
+}
+section > p, a {
+    color: #000;
+}
+/* calendário */
+
+.wrapper {
+    margin-top: 1rem;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.wrapper header {
+    display: flex;
+    align-items: center;
+    padding: 25px 30px 10px;
+    justify-content: space-between;
+}
+
+header .icons {
+    display: flex;
+}
+
+header .icons span {
+    height: 38px;
+    width: 38px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 38px;
+    font-size: 1.5rem;
+    user-select: none;
+    border-radius: 50%;
+}
+
+.icons span:last-child {
+    margin-right: -10px;
+}
+
+header .icons span:hover {
+    color: var(--azul70);
+}
+
+header .current-date {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.calendar {
+    padding: 20px;
+}
+
+.calendar ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    text-align: center;
+}
+
+.calendar .days {
+    margin-bottom: 20px;
+}
+
+.calendar li {
+    color: #000;
+    width: calc(100% / 7);
+    font-size: 0.9rem;
+}
+
+.calendar .weeks li {
+    font-weight: 500;
+    cursor: default;
+}
+
+.calendar .days li {
+    z-index: 1;
+    cursor: pointer;
+    position: relative;
+    margin-top: 30px;
+}
+.days li {
+    user-select: none;
+}
+
+.days li.inactive {
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+.days li.active {
+    color: #fff;
+}
+
+.days li::before {
+    position: absolute;
+    content: "";
+    left: 50%;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    z-index: -1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.days li.active::before {
+    background: #9B59B6;
+}
+
+.hidden {
+    display: none;
 }
