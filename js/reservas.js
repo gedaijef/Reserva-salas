@@ -8,6 +8,10 @@ img.setAttribute("alt", "Imagem da barra lateral")
 barra.appendChild(img)
 
 
+//Nessa lista vai ficar o resumo do que o usuário selecionou.
+let reserva = []
+
+
 //Funcionamento do calendário
 const daysTag = document.querySelector(".days"), //Seleciona o elemento HTML que contém os dias do calendário.
     currentDate = document.querySelector(".current-date"), //Seleciona o elemento HTML que mostra a data atual (mês e ano).
@@ -25,53 +29,78 @@ let date = new Date(),
 const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
 const renderCalendar = () => {
-    let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // getting first day of month
-        lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // getting last date of month
-        lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // getting last day of month
-        lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // getting last date of previous month
+    let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // pegando o primeiro dia do mês
+        lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // pegando o último dia do mês
+        lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // pegando o último dia do mês
+        lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // pegando o último dia do mês anterior
     let liTag = "";
 
-    for (let i = firstDayofMonth; i > 0; i--) { // creating li of previous month last days
+    for (let i = firstDayofMonth; i > 0; i--) { // criando os dias inativos do mês anterior
         liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
     }
 
-    for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
-        // adding active class to li if the current day, month, and year matched
+    for (let i = 1; i <= lastDateofMonth; i++) { // criando os dias do mês atual
+        // adicionando a classe ativa ao dia se o dia atual, mês e ano corresponderem
         let isToday = i === date.getDate() && currMonth === new Date().getMonth()
-            && currYear
+            && currYear 
 
-        // Check if the day is Saturday (6) or Sunday (0)
+        // Verifica se o dia é sábado (6) ou domingo (0)
         let dayOfWeek = new Date(currYear, currMonth, i).getDay();
         let inactiveClass = (dayOfWeek === 0 || dayOfWeek === 6) ? "inactive" : "";
 
         liTag += `<li class="${isToday} ${inactiveClass}">${i}</li>`;
     }
 
-    for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
+    // preenchendo os dias restantes para completar as 6 linhas
+    for (let i = lastDayofMonth; i < 6 * 7 - (firstDayofMonth + lastDateofMonth); i++) {
         liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`;
     }
-    currentDate.innerText = `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
+
+    currentDate.innerText = `${months[currMonth]} ${currYear}`; // passando o mês e ano atuais como texto da currentDate
     daysTag.innerHTML = liTag;
 
-    // Hide or show the prev icon based on the current month and year
+    // Esconder ou mostrar o ícone anterior com base no mês e ano atuais
     if (currYear === currentYear && currMonth === 0) {
         prevIcon.classList.add("hidden");
     } else {
         prevIcon.classList.remove("hidden");
     }
 
-    // Hide or show the next icon based on the current month and year
+    // Esconder ou mostrar o ícone próximo com base no mês e ano atuais
     if (currYear === currentYear && currMonth === 11) {
         nextIcon.classList.add("hidden");
     } else {
         nextIcon.classList.remove("hidden");
     }
+
+
+    // Deixando as bolinhas coloridinhas ao clique e adicionando o dia selecionado à lista
+    const listaDias = document.getElementsByClassName("days")[0];
+    const dias = listaDias.querySelectorAll("li");
+
+    for (let i = 0; i < dias.length; i++) {
+        dias[i].addEventListener('click', () => {
+            reserva = []
+
+            if (!dias[i].classList.contains("inactive")) {
+                // Remove a classe "active" de todos os dias
+                dias.forEach(dia => dia.classList.remove("active"));
+                // Adiciona a classe "active" ao dia clicado
+                dias[i].classList.toggle("active");
+                reserva.push(dias[i].textContent)
+            }
+        });
+    }
 }
+
 renderCalendar();
+
+
 
 prevNextIcon.forEach(icon => { // getting prev and next icons
     icon.addEventListener("click", () => { // adding click event on both icons
         // if clicked icon is previous icon then decrement current month by 1 else increment it by 1
+
         if (icon.id === "prev" && (currMonth > 0 || currYear > currentYear)) {
             currMonth -= 1;
         } else if (icon.id === "next" && (currMonth < 11 || currYear < currentYear + 1)) {
@@ -87,21 +116,6 @@ prevNextIcon.forEach(icon => { // getting prev and next icons
             date = new Date(); // pass the current date as date value
         }
         renderCalendar(); // calling renderCalendar function
-    });
-});
 
-
-const listaDias = document.getElementsByClassName("days")[0];
-const dias = listaDias.querySelectorAll("li");
-
-for (let i = 0; i < dias.length; i++) {
-    dias[i].addEventListener('click', () => {
-        if (!dias[i].classList.contains("inactive")) {
-            // Remove a classe "active" de todos os dias
-            dias.forEach(dia => dia.classList.remove("active"));
-            // Adiciona a classe "active" ao dia clicado
-            dias[i].classList.toggle("active");
-        }
-    });
-}
-
+    })
+})
