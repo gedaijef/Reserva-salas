@@ -16,7 +16,25 @@
 
 <body>
     <div id="barra-lateral"></div>
-    <div id="popup"></div>
+    <div id="popup">
+        <header id="headerPopup">
+            <p>Definir reserva para o dia <span id="diaSelecionado"></span></p>
+            <span class="material-symbols-outlined">
+                close
+            </span>
+        </header>
+        <form>
+            <div class="form__group field">
+                <input type="input" class="form__field" placeholder="Nome da reserva" name="name" id='name' minlength="3" required/>
+                <label for="name" class="form__label">Nome da reserva</label>
+            </div>
+            <label for="timeInicio">Início:</label>
+            <input type="time" name="timeInicio" id="timeInicio" required>
+            <label for="timeFinal">Término:</label>
+            <input type="time" name="timeFinal" id="timeFinal">
+        </form>
+
+    </div>
     <main>
         <section id="container">
             <h1 id="titleSpot">Reservar um spot</h1>
@@ -24,7 +42,7 @@
 
             <section id="conteudo">
                 <div class="wrapper">
-                    <header>
+                    <header id="headerCalendario">
                         <p class="current-date"></p>
                         <div class="icons">
                             <span id="prev" class="material-symbols-rounded">chevron_left</span>
@@ -46,42 +64,38 @@
                 </div>
                 <div class="salas">
                     <div class="sala">
-                        <a href="">
-                            <h1>777</h1>
-                            <p>🟢Disponível a partir das 7h</p>
+                        <h1>777</h1>
+                        <p>🟢Disponível a partir das 7h</p>
+                    </div>
+                    <div class="sala">
+                        <h1>777</h1>
+                        <p>🟢Disponível a partir das 7h</p>
+                    </div>
+                    <div class="sala">
+
+                        <h1>777</h1>
+                        <p>🟢Disponível a partir das 7h</p>
                         </a>
                     </div>
                     <div class="sala">
-                        <a href="">
-                            <h1>777</h1>
-                            <p>🟢Disponível a partir das 7h</p>
+
+                        <h1>777</h1>
+                        <p>🟢Disponível a partir das 7h</p>
                         </a>
                     </div>
                     <div class="sala">
-                        <a href="">
-                            <h1>777</h1>
-                            <p>🟢Disponível a partir das 7h</p>
-                        </a>
+
+                        <h1>777</h1>
+                        <p>🟢Disponível a partir das 7h</p>
+
                     </div>
                     <div class="sala">
-                        <a href="">
-                            <h1>777</h1>
-                            <p>🟢Disponível a partir das 7h</p>
-                        </a>
+
+                        <h1>777</h1>
+                        <p>🟢Disponível a partir das 7h</p>
+
                     </div>
-                    <div class="sala">
-                        <a href="">
-                            <h1>777</h1>
-                            <p>🟢Disponível a partir das 7h</p>
-                        </a>
-                    </div>
-                    <div class="sala">
-                        <a href="">
-                            <h1>777</h1>
-                            <p>🟢Disponível a partir das 7h</p>
-                        </a>
-                    </div>
-                 
+
 
                 </div>
             </section>
@@ -92,9 +106,5 @@
 
 </body>
 
-
-<script defer>
-
-</script>
 
 </html>

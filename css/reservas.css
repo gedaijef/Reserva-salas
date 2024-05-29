@@ -60,10 +60,12 @@ main {
     width: 100%;
     height: 100%;
 }
+
 #linkVoltar {
     margin-left: 3rem;
     margin-bottom: 1.5rem;
 }
+
 #voltar {
     color: var(--font);
 }
@@ -81,18 +83,18 @@ main {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
 }
 
-.wrapper header {
+.wrapper #headerCalendario {
     display: flex;
     align-items: center;
     padding: 25px 30px 10px;
     justify-content: space-between;
 }
 
-header .icons {
+#headerCalendario .icons {
     display: flex;
 }
 
-header .icons span {
+#headerCalendario .icons span {
     height: 38px;
     width: 38px;
     cursor: pointer;
@@ -107,11 +109,11 @@ header .icons span {
     margin-right: -10px;
 }
 
-header .icons span:hover {
+#headerCalendario .icons span:hover {
     color: var(--azul70);
 }
 
-header .current-date {
+#headerCalendario .current-date {
     font-size: 1.2rem;
     font-weight: 500;
 }
@@ -184,10 +186,11 @@ header .current-date {
 
 .salas {
     width: 35%;
-    height: 27rem;  
+    height: 27rem;
     overflow-y: scroll;
 
 }
+
 .sala {
     background-color: var(--azul20);
     margin-bottom: 0.8rem;
@@ -195,27 +198,101 @@ header .current-date {
     padding-inline: 2rem;
     border-radius: 10px;
     cursor: pointer;
-
-}
-.sala a { 
     color: var(--font);
-    text-decoration: none;
 }
-.sala  p {
+
+.sala p {
     margin: 0.3rem 0;
     font-size: 0.8rem;
 }
-
 
 /*Estilizando o popup de reservas*/
 #popup {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 500px; 
-    height: 400px;
-    background-color: white; 
+    width: 500px;
+    height: fit-content;
+    background-color: white;
     transform: translate(-50%, -50%);
     z-index: 2;
     border-radius: 10px;
+    display: none;
+}
+
+#headerPopup {
+    background-color: var(--azul70);
+    color: var(--bg);
+    border-radius: 10px 10px 0px 0px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#headerPopup p {
+    padding-inline: 10px;
+    padding-block: 5px;
+}
+
+.material-symbols-outlined {
+    cursor: pointer;
+    padding-inline: 10px;
+    padding-block: 5px;
+}
+form {
+    padding-inline: 15px;
+}
+/*Estilizando caixa de input*/
+.form__group {
+    position: relative;
+    margin-top: 5px;
+    padding-block: 20px;
+}
+
+.form__field {
+    border: 0;
+    border-bottom: 2px solid var(--font);
+    outline: 0;
+    font-size: 1rem;
+    width: 60%;
+    background: transparent;
+    transition: border-color 0.2s;
+
+    &::placeholder {
+        color: transparent;
+    }
+
+    &:placeholder-shown~.form__label {
+        font-size: 1rem;
+        cursor: text;
+        top: 20px;
+    }
+}
+
+.form__label {
+    position: absolute;
+    font-style: italic;
+
+    display: block;
+    color: var(--font);
+    user-select: none;
+    transition: 0.2s;
+}
+
+.form__field:focus {
+    padding-bottom: 6px;
+    border-width: 3px;
+    border-color: var(--azul70);
+    border-image-slice: 1;
+
+    ~.form__label {
+        position: absolute;
+        top: 0;
+        display: block;
+        color: var(--azul70);
+        transition: 0.2s;
+    }
+
+
 }

@@ -1,4 +1,3 @@
-
 //Essa parte serve para colocar a imagem lateral
 const barra = document.getElementById('barra-lateral')
 const img = document.createElement("img")
@@ -10,6 +9,7 @@ barra.appendChild(img)
 
 //Nessa lista vai ficar o resumo do que o usuário selecionou.
 let reserva = []
+let dataSelecionada = ""
 
 
 //Funcionamento do calendário
@@ -30,8 +30,7 @@ const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Jul
 
 const renderCalendar = () => {
     let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // pegando o primeiro dia do mês
-        lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // pegando o último dia do mês
-        lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // pegando o último dia do mês
+        lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // pegando o último dia do mês
         lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // pegando o último dia do mês anterior
     let liTag = "";
 
@@ -42,7 +41,7 @@ const renderCalendar = () => {
     for (let i = 1; i <= lastDateofMonth; i++) { // criando os dias do mês atual
         // adicionando a classe ativa ao dia se o dia atual, mês e ano corresponderem
         let isToday = i === date.getDate() && currMonth === new Date().getMonth()
-            && currYear 
+            && currYear
 
         // Verifica se o dia é sábado (6) ou domingo (0)
         let dayOfWeek = new Date(currYear, currMonth, i).getDay();
@@ -88,6 +87,9 @@ const renderCalendar = () => {
                 // Adiciona a classe "active" ao dia clicado
                 dias[i].classList.toggle("active");
                 reserva.push(dias[i].textContent)
+
+                // Exibe um alerta com a data selecionada
+                dataSelecionada = `${dias[i].textContent}/${currMonth + 1}/${currYear}`
             }
         });
     }
@@ -119,3 +121,48 @@ prevNextIcon.forEach(icon => { // getting prev and next icons
 
     })
 })
+
+
+//Pegando o clique do usuário nas salas, adicionando o popup com a data selecionada e bloqueando o popup caso nenhum dia tenha sido selecionado
+const salas = document.getElementsByClassName("sala");
+const popup = document.getElementById("popup");
+const diaSelecionado = document.getElementById("diaSelecionado");
+for (let i = 0; i < salas.length; i++) {
+    salas[i].addEventListener('click', () => {
+        if (dataSelecionada.trim() == "") {
+            alert("Selecione uma data primeiro")
+        } else {
+            popup.style.display = 'block'
+            diaSelecionado.textContent = dataSelecionada
+        }
+    })
+
+}
+
+//Fechando o popup quando o botão de fechar for clicado
+const closePopup = document.getElementsByClassName('material-symbols-outlined')[0]
+closePopup.addEventListener('click', () => {
+    popup.style.display = 'none'
+})
+
+
+document.getElementById('timeInicio').addEventListener('change', function () {
+    checkTime(this);
+});
+
+document.getElementById('timeFinal').addEventListener('change', function () {
+    checkTime(this);
+});
+
+function checkTime(input) {
+    const time = input.value;
+    const [hours, minutes] = time.split(':').map(Number);
+    if (hours > 18) {
+        alert('Horário inválido');
+        input.value = '';
+    }
+    else if (hours >= 18 && minutes >= 1) {
+        alert('Horário inválido');
+        input.value = '';
+    }
+}
