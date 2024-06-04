@@ -16,24 +16,37 @@
 
 <body>
     <div id="barra-lateral"></div>
-    <div id="popup">
-        <header id="headerPopup">
-            <p>Definir reserva para o dia <span id="diaSelecionado"></span></p>
-            <span class="material-symbols-outlined">
-                close
-            </span>
-        </header>
-        <form>
-            <div class="form__group field">
-                <input type="input" class="form__field" placeholder="Nome da reserva" name="name" id='name' minlength="3" required/>
-                <label for="name" class="form__label">Nome da reserva</label>
+    <div id="container-popup">
+        <div id="popup">
+            <header id="headerPopup">
+                <p>Definir reserva para o dia <span id="diaSelecionado"></span></p>
+                <span class="material-symbols-outlined" id="icon-close">
+                    close
+                </span>
+            </header>
+            <div id="container-form">
+                <form>
+                    <div class="textInputWrapper">
+                        <input placeholder="Nome da reserva" type="text" class="textInput">
+                    </div>
+                    <div id="form_horario_inicio">
+                        <label for="timeInicio">Início:</label>
+                        <input type="time" name="timeInicio" id="timeInicio" required>
+                    </div>
+                    <div id="form_horario_termino">
+                        <label for="timeFinal">Término:</label>
+                        <input type="time" name="timeFinal" id="timeFinal">
+                    </div>
+                </form>
+                <section id="container-checkbox"><input type="checkbox" class="ui-checkbox" id="checkbox">
+                    <p>Definir recorrência</p>
+                </section>
+                <div id="container-buttons">
+                    <button id="button-cancelar">Cancelar</button>
+                    <button id="button-reservar">Reservar</button>
+                </div>
             </div>
-            <label for="timeInicio">Início:</label>
-            <input type="time" name="timeInicio" id="timeInicio" required>
-            <label for="timeFinal">Término:</label>
-            <input type="time" name="timeFinal" id="timeFinal">
-        </form>
-
+        </div>
     </div>
     <main>
         <section id="container">
@@ -64,36 +77,116 @@
                 </div>
                 <div class="salas">
                     <div class="sala">
-                        <h1>777</h1>
-                        <p>🟢Disponível a partir das 7h</p>
+                        <h2>777</h2>
+                        <section id="container-info-sala">
+                            <div class="info-sala">
+                                <p><span class="material-symbols-outlined">
+                                        chair_alt
+                                    </span>5 cadeiras</p>
+                                <p><span class="material-symbols-outlined">
+                                        tv
+                                    </span>Com televisão</p>
+                            </div>
+                            <div class="info-sala" id="info-sala-direita">
+                                <p><span class="material-symbols-outlined">
+                                        pace
+                                    </span>Disponível a partir das 7h</p>
+                                <p><span class="material-symbols-outlined">
+                                    location_on
+                                    </span>Localizado no 1º andar</p>
+                            </div>
+                        </section>
                     </div>
+                    
                     <div class="sala">
-                        <h1>777</h1>
-                        <p>🟢Disponível a partir das 7h</p>
+                        <h2>777</h2>
+                        <section id="container-info-sala">
+                            <div class="info-sala">
+                                <p><span class="material-symbols-outlined">
+                                        chair_alt
+                                    </span>5 cadeiras</p>
+                                <p><span class="material-symbols-outlined">
+                                        tv
+                                    </span>Com televisão</p>
+                            </div>
+                            <div class="info-sala" id="info-sala-direita">
+                                <p><span class="material-symbols-outlined">
+                                        pace
+                                    </span>Disponível a partir das 7h</p>
+                                <p><span class="material-symbols-outlined">
+                                    location_on
+                                    </span>Localizado no 1º andar</p>
+                            </div>
+                        </section>
                     </div>
-                    <div class="sala">
 
-                        <h1>777</h1>
-                        <p>🟢Disponível a partir das 7h</p>
-                        </a>
+                    
+                    <div class="sala">
+                        <h2>777</h2>
+                        <section id="container-info-sala">
+                            <div class="info-sala">
+                                <p><span class="material-symbols-outlined">
+                                        chair_alt
+                                    </span>5 cadeiras</p>
+                                <p><span class="material-symbols-outlined">
+                                        tv
+                                    </span>Com televisão</p>
+                            </div>
+                            <div class="info-sala" id="info-sala-direita">
+                                <p><span class="material-symbols-outlined">
+                                        pace
+                                    </span>Disponível a partir das 7h</p>
+                                <p><span class="material-symbols-outlined">
+                                    location_on
+                                    </span>Localizado no 1º andar</p>
+                            </div>
+                        </section>
                     </div>
-                    <div class="sala">
 
-                        <h1>777</h1>
-                        <p>🟢Disponível a partir das 7h</p>
-                        </a>
+                    
+                    <div class="sala">
+                        <h2>777</h2>
+                        <section id="container-info-sala">
+                            <div class="info-sala">
+                                <p><span class="material-symbols-outlined">
+                                        chair_alt
+                                    </span>5 cadeiras</p>
+                                <p><span class="material-symbols-outlined">
+                                        tv
+                                    </span>Com televisão</p>
+                            </div>
+                            <div class="info-sala" id="info-sala-direita">
+                                <p><span class="material-symbols-outlined">
+                                        pace
+                                    </span>Disponível a partir das 7h</p>
+                                <p><span class="material-symbols-outlined">
+                                    location_on
+                                    </span>Localizado no 1º andar</p>
+                            </div>
+                        </section>
                     </div>
+
+                    
                     <div class="sala">
-
-                        <h1>777</h1>
-                        <p>🟢Disponível a partir das 7h</p>
-
-                    </div>
-                    <div class="sala">
-
-                        <h1>777</h1>
-                        <p>🟢Disponível a partir das 7h</p>
-
+                        <h2>777</h2>
+                        <section id="container-info-sala">
+                            <div class="info-sala">
+                                <p><span class="material-symbols-outlined">
+                                        chair_alt
+                                    </span>5 cadeiras</p>
+                                <p><span class="material-symbols-outlined">
+                                        tv
+                                    </span>Com televisão</p>
+                            </div>
+                            <div class="info-sala" id="info-sala-direita">
+                                <p><span class="material-symbols-outlined">
+                                        pace
+                                    </span>Disponível a partir das 7h</p>
+                                <p><span class="material-symbols-outlined">
+                                    location_on
+                                    </span>Localizado no 1º andar</p>
+                            </div>
+                        </section>
                     </div>
 
 

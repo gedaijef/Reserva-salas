@@ -16,15 +16,15 @@ let dataSelecionada = ""
 const daysTag = document.querySelector(".days"), //Seleciona o elemento HTML que contém os dias do calendário.
     currentDate = document.querySelector(".current-date"), //Seleciona o elemento HTML que mostra a data atual (mês e ano).
     prevNextIcon = document.querySelectorAll(".icons span"), // Seleciona todos os elementos de ícone para navegação (anterior e próximo).
-    prevIcon = document.getElementById("prev"), // getting the previous icon specifically
-    nextIcon = document.getElementById("next"); // getting the next icon specifically
+    prevIcon = document.getElementById("prev"), // Seleciona o ícone anterior especificamente
+    nextIcon = document.getElementById("next"); // Seleciona o ícone próximo especificamente
 
 // Pegamos o ano e o mês atual (0-11)
 let date = new Date(),
     currYear = date.getFullYear(),
     currMonth = date.getMonth(),
-    currentYear = currYear; // storing the current year to restrict navigation
-
+    currentYear = currYear, // armazenando o ano atual para restringir a navegação
+    currentMonth = currMonth; // armazenando o mês atual para restringir a navegação
 
 const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
@@ -41,7 +41,7 @@ const renderCalendar = () => {
     for (let i = 1; i <= lastDateofMonth; i++) { // criando os dias do mês atual
         // adicionando a classe ativa ao dia se o dia atual, mês e ano corresponderem
         let isToday = i === date.getDate() && currMonth === new Date().getMonth()
-            && currYear
+            && currYear;
 
         // Verifica se o dia é sábado (6) ou domingo (0)
         let dayOfWeek = new Date(currYear, currMonth, i).getDay();
@@ -59,7 +59,7 @@ const renderCalendar = () => {
     daysTag.innerHTML = liTag;
 
     // Esconder ou mostrar o ícone anterior com base no mês e ano atuais
-    if (currYear === currentYear && currMonth === 0) {
+    if (currYear === currentYear && currMonth <= currentMonth) {
         prevIcon.classList.add("hidden");
     } else {
         prevIcon.classList.remove("hidden");
@@ -71,7 +71,6 @@ const renderCalendar = () => {
     } else {
         nextIcon.classList.remove("hidden");
     }
-
 
     // Deixando as bolinhas coloridinhas ao clique e adicionando o dia selecionado à lista
     const listaDias = document.getElementsByClassName("days")[0];
@@ -97,35 +96,34 @@ const renderCalendar = () => {
 
 renderCalendar();
 
+prevNextIcon.forEach(icon => { // obtendo os ícones de anterior e próximo
+    icon.addEventListener("click", () => { // adicionando evento de clique em ambos os ícones
+        // se o ícone clicado for o ícone anterior, decrementar o mês atual em 1, caso contrário, incrementar em 1
 
-
-prevNextIcon.forEach(icon => { // getting prev and next icons
-    icon.addEventListener("click", () => { // adding click event on both icons
-        // if clicked icon is previous icon then decrement current month by 1 else increment it by 1
-
-        if (icon.id === "prev" && (currMonth > 0 || currYear > currentYear)) {
+        if (icon.id === "prev" && (currMonth > currentMonth || currYear > currentYear)) {
             currMonth -= 1;
         } else if (icon.id === "next" && (currMonth < 11 || currYear < currentYear + 1)) {
             currMonth += 1;
         }
 
-        if (currMonth < 0 || currMonth > 11) { // if current month is less than 0 or greater than 11
-            // creating a new date of current year & month and pass it as date value
+        if (currMonth < 0 || currMonth > 11) { // se o mês atual for menor que 0 ou maior que 11
+            // criando uma nova data do ano e mês atuais e passando como valor de data
             date = new Date(currYear, currMonth, new Date().getDate());
-            currYear = date.getFullYear(); // updating current year with new date year
-            currMonth = date.getMonth(); // updating current month with new date month
+            currYear = date.getFullYear(); // atualizando o ano atual com o ano da nova data
+            currMonth = date.getMonth(); // atualizando o mês atual com o mês da nova data
         } else {
-            date = new Date(); // pass the current date as date value
+            date = new Date(); // passando a data atual como valor de data
         }
-        renderCalendar(); // calling renderCalendar function
+        renderCalendar(); // chamando a função renderCalendar
 
     })
-})
+});
 
 
 //Pegando o clique do usuário nas salas, adicionando o popup com a data selecionada e bloqueando o popup caso nenhum dia tenha sido selecionado
 const salas = document.getElementsByClassName("sala");
 const popup = document.getElementById("popup");
+const containerPopup = document.getElementById("container-popup");
 const diaSelecionado = document.getElementById("diaSelecionado");
 for (let i = 0; i < salas.length; i++) {
     salas[i].addEventListener('click', () => {
@@ -133,16 +131,32 @@ for (let i = 0; i < salas.length; i++) {
             alert("Selecione uma data primeiro")
         } else {
             popup.style.display = 'block'
+            containerPopup.style.display = 'block'
             diaSelecionado.textContent = dataSelecionada
         }
     })
 
 }
 
-//Fechando o popup quando o botão de fechar for clicado
+// Fechando o popup quando:
+// X for clicado
+// clicar fora do popup
+// Cancelar
+const btnCancelar = document.getElementById('button-cancelar')
 const closePopup = document.getElementsByClassName('material-symbols-outlined')[0]
 closePopup.addEventListener('click', () => {
     popup.style.display = 'none'
+    containerPopup.style.display = 'none'
+})
+containerPopup.addEventListener('click', (event) => {
+    if (event.target == containerPopup) {
+        popup.style.display = 'none'
+        containerPopup.style.display = 'none'
+    }
+})
+btnCancelar.addEventListener('click', () => {
+    popup.style.display = 'none'
+    containerPopup.style.display = 'none'
 })
 
 
@@ -166,3 +180,11 @@ function checkTime(input) {
         input.value = '';
     }
 }
+
+//Definir recorrência
+const checkbox = document.getElementById('checkbox');
+checkbox.addEventListener('change', function (event) {
+    if (event.target.checked) {
+        //
+    }
+})
