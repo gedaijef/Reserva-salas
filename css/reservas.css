@@ -472,3 +472,8 @@ main {
     border-left: 2px solid var(--font);
     padding-left: 10px;
 }
+
+/*TABS*/
+#tabs-recorrencia { 
+    display: flex;
+}
