@@ -19,7 +19,7 @@
     <div id="container-popup">
         <div id="popup">
             <header id="headerPopup">
-                <p>Definir reserva para o dia <span id="diaSelecionado"></span></p>
+                <p>Definir reserva para o dia <span class="diaSelecionado"></span></p>
                 <span class="material-symbols-outlined" id="icon-close">
                     close
                 </span>
@@ -27,11 +27,11 @@
             <div id="container-form">
                 <form>
                     <div class="textInputWrapper">
-                        <input placeholder="Nome da reserva" type="text" class="textInput">
+                        <input placeholder="Nome da reserva" type="text" id="textInput">
                     </div>
                     <div id="form_horario_inicio">
                         <label for="timeInicio">Início:</label>
-                        <input type="time" name="timeInicio" id="timeInicio" required>
+                        <input type="time" name="timeInicio" id="timeInicio">
                     </div>
                     <div id="form_horario_termino">
                         <label for="timeFinal">Término:</label>
@@ -43,8 +43,9 @@
                 </section>
 
                 <section id="tabs-recorrencia">
-                    <h3>Semanalmente</h3>
-                    <h3>Diariamente</h3>
+                    <h3 id="semanalmente">Semanalmente</h3>
+                    <p>Data de início: <span class="diaSelecionado"></span></p>
+                    <p>Data de término: <input type="date" id="dataTermino"></p>
                 </section>
 
                 <div id="container-buttons">
@@ -98,35 +99,12 @@
                                         pace
                                     </span>Disponível a partir das 7h</p>
                                 <p><span class="material-symbols-outlined">
-                                    location_on
-                                    </span>Localizado no 1º andar</p>
-                            </div>
-                        </section>
-                    </div>
-                    
-                    <div class="sala">
-                        <h2>777</h2>
-                        <section id="container-info-sala">
-                            <div class="info-sala">
-                                <p><span class="material-symbols-outlined">
-                                        chair_alt
-                                    </span>5 cadeiras</p>
-                                <p><span class="material-symbols-outlined">
-                                        tv
-                                    </span>Com televisão</p>
-                            </div>
-                            <div class="info-sala" id="info-sala-direita">
-                                <p><span class="material-symbols-outlined">
-                                        pace
-                                    </span>Disponível a partir das 7h</p>
-                                <p><span class="material-symbols-outlined">
-                                    location_on
+                                        location_on
                                     </span>Localizado no 1º andar</p>
                             </div>
                         </section>
                     </div>
 
-                    
                     <div class="sala">
                         <h2>777</h2>
                         <section id="container-info-sala">
@@ -143,13 +121,13 @@
                                         pace
                                     </span>Disponível a partir das 7h</p>
                                 <p><span class="material-symbols-outlined">
-                                    location_on
+                                        location_on
                                     </span>Localizado no 1º andar</p>
                             </div>
                         </section>
                     </div>
 
-                    
+
                     <div class="sala">
                         <h2>777</h2>
                         <section id="container-info-sala">
@@ -166,13 +144,13 @@
                                         pace
                                     </span>Disponível a partir das 7h</p>
                                 <p><span class="material-symbols-outlined">
-                                    location_on
+                                        location_on
                                     </span>Localizado no 1º andar</p>
                             </div>
                         </section>
                     </div>
 
-                    
+
                     <div class="sala">
                         <h2>777</h2>
                         <section id="container-info-sala">
@@ -189,7 +167,30 @@
                                         pace
                                     </span>Disponível a partir das 7h</p>
                                 <p><span class="material-symbols-outlined">
-                                    location_on
+                                        location_on
+                                    </span>Localizado no 1º andar</p>
+                            </div>
+                        </section>
+                    </div>
+
+
+                    <div class="sala">
+                        <h2>777</h2>
+                        <section id="container-info-sala">
+                            <div class="info-sala">
+                                <p><span class="material-symbols-outlined">
+                                        chair_alt
+                                    </span>5 cadeiras</p>
+                                <p><span class="material-symbols-outlined">
+                                        tv
+                                    </span>Com televisão</p>
+                            </div>
+                            <div class="info-sala" id="info-sala-direita">
+                                <p><span class="material-symbols-outlined">
+                                        pace
+                                    </span>Disponível a partir das 7h</p>
+                                <p><span class="material-symbols-outlined">
+                                        location_on
                                     </span>Localizado no 1º andar</p>
                             </div>
                         </section>

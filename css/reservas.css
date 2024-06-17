@@ -20,6 +20,7 @@
 body {
     height: 100vh;
     background-color: var(--bg);
+    user-select: none;
 }
 
 /*Estilizando o popup de reservas*/
@@ -110,18 +111,21 @@ body {
     border-bottom: 2px solid var(--accent-color);
 }
 
-.textInputWrapper .textInput {
-    max-height: 36px;
+#textInput {
+    width: 100%;
+    border-radius: 4px 4px 0px 0px;
+    outline: none;
+    border: none;
+    background-color: var(--azul20);
+    cursor: pointer;
+    padding: .2em;
     transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
     transition-duration: 200ms;
-
-    border: none;
-    outline: none;
 }
 
-.textInput::placeholder {
-    font-style: italic;
-    font-weight: 500;
+#textInput::placeholder {
+    color: var(--font);
+    font-weight: 300;
 }
 
 /*Estilizando caixas de input de horário*/
@@ -131,8 +135,8 @@ body {
     padding-block: .5rem;
 }
 
-#form_horario_inicio>input,
-#form_horario_termino>input {
+input[type="date"],
+input[type="time"] {
     border-radius: 4px;
     outline: none;
     border: none;
@@ -207,7 +211,7 @@ body {
 }
 
 .ui-checkbox:checked {
-    background: var(--azul70);
+    background: var(--azul100);
     border-color: transparent;
 }
 
@@ -338,7 +342,6 @@ main {
     text-align: center;
     line-height: 38px;
     font-size: 1.5rem;
-    user-select: none;
     border-radius: 50%;
 }
 
@@ -386,10 +389,6 @@ main {
     cursor: pointer;
     position: relative;
     margin-top: 30px;
-}
-
-.days li {
-    user-select: none;
 }
 
 .days li.inactive {
@@ -474,6 +473,26 @@ main {
 }
 
 /*TABS*/
-#tabs-recorrencia { 
-    display: flex;
+#tabs-recorrencia {
+    display: none;
+    margin-block: 1rem;
+}
+
+#tabs-recorrencia>h3 {
+    font-weight: 400;
+    width: 100%;
+    font-size: .9rem;
+    text-align: center;
+    padding-block: .2rem;
+    color: white;
+    background-color: var(--azul70);
+    padding-inline: 1rem;
+    border-radius: 4px;
+    margin-bottom: .5rem;
+    letter-spacing: .7px;
+}
+
+#tabs-recorrencia>p {
+    font-size: .9rem;
+    margin-block: 12px;
 }
