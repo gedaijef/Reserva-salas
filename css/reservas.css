@@ -316,65 +316,8 @@ main {
 #container-botoes button:hover {
     background-color: var(--azul70);
     color: white;
-
 }
 
-/*Estilizando caixa de input para nome da reserva*/
-.textInputWrapper {
-    position: relative;
-    width: 50%;
-    margin-block: 12px;
-    --accent-color: var(--font);
-}
-
-.textInputWrapper:before,
-.textInputWrapper:after {
-    content: "";
-    left: 0;
-    right: 0;
-    position: absolute;
-    pointer-events: none;
-    bottom: -1px;
-}
-
-.textInputWrapper:before {
-    transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
-}
-
-.textInputWrapper:focus-within:before {
-    border-bottom: 1px solid var(--accent-color);
-    transform: scaleX(1);
-}
-
-.textInputWrapper:focus-within:after {
-    border-bottom: 2px solid var(--accent-color);
-    transform: scaleX(1);
-}
-
-.textInputWrapper:after {
-    content: "";
-    transform: scaleX(0);
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1) 0ms;
-    border-bottom: 2px solid var(--accent-color);
-}
-
-#textInput {
-    width: 100%;
-    border-radius: 4px 4px 0px 0px;
-    outline: none;
-    border: none;
-    background-color: var(--azul20);
-    cursor: pointer;
-    padding: .2em;
-    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
-    transition-duration: 200ms;
-}
-
-#textInput::placeholder {
-    color: var(--font);
-    font-weight: 300;
-}
 
 /*Estilizando caixas de input de horário e de opções*/
 #form_horario_inicio,
@@ -488,7 +431,6 @@ select {
     cursor: default;
     font-size: .8rem;
     align-self: center;
-
 }
 
 #recorrencia-selecionada {
@@ -496,90 +438,114 @@ select {
     margin: .5rem;
 }
 
-
-/*Estilizando o popup de reservas*/
-
-#popup,
-#popup-confirmacao {
+/*Estilizando popup para receber últimos dados*/
+#container-popup {
+    height: 100%;
+    width: 100%;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    height: fit-content;
-    background-color: white;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    border-radius: 10px;
+    background-color: #00000053;
+    z-index: 3;
+    justify-content: center;
     display: none;
-}
-
-.headerPopup {
-    background-color: var(--azul70);
-    color: var(--bg);
-    border-radius: 10px 10px 0px 0px;
-    font-weight: 500;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
-.headerPopup p {
-    padding-inline: 10px;
-    padding-block: 5px;
-}
-
-#icon-close {
-    cursor: pointer;
-    padding-inline: 10px;
-    padding-block: 5px;
-}
-
-
-
-
-/*TABS*/
-#tabs-recorrencia {
+#popup {
+    height: 200px;
+    width: 500px;
     display: none;
-    margin-block: 1rem;
+    background-color: var(--bg);
+    border-radius: 10px;
 }
 
-#tabs-recorrencia>h3 {
-    font-weight: 400;
-    width: 100%;
-    font-size: .9rem;
-    text-align: center;
-    padding-block: .2rem;
-    color: white;
+#header-popup {
     background-color: var(--azul70);
-    padding-inline: 1rem;
-    border-radius: 4px;
-    margin-bottom: .5rem;
-    letter-spacing: .7px;
+    padding-left: 1rem;
+    border-radius: 10px 10px 0 0;
+    color: white;
 }
 
-#tabs-recorrencia>p {
-    font-size: .9rem;
-    margin-block: 12px;
+#header-popup>h1 {
+    padding-block: .2rem;
+    font-weight: 500;
+    font-size: 1.2rem;
 }
 
-/*Estilizando os botões do popup*/
-
-#container-buttons {
-    justify-content: space-around;
-    display: flex;
-    margin-top: 2rem;
+#container-informacoes {
+    padding: 1rem;
 }
 
-#button-cancelar,
-#button-reservar {
-    cursor: pointer;
-    background-color: var(--azul100);
-    color: #fff;
-    outline: none;
+/*Estilizando nome da reserva*/
+.wave-group {
+    position: relative;
+}
+
+.wave-group .input {
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 200px;
     border: none;
-    padding-block: .5rem;
-    padding-inline: 1rem;
-    border-radius: 4px;
+    border-bottom: 1px solid #515151;
+    background: transparent;
 }
+
+.wave-group .input:focus {
+    outline: none;
+}
+
+.wave-group .label {
+    color: var(--font);
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    top: 10px;
+    display: flex;
+}
+
+.wave-group .label-char {
+    transition: 0.2s ease all;
+}
+
+.wave-group .input:focus~label .label-char,
+.wave-group .input:valid~label .label-char {
+    transform: translateY(-20px);
+    font-size: 14px;
+    color: #5264AE;
+}
+
+.wave-group .bar {
+    position: relative;
+    display: block;
+    width: 200px;
+}
+
+.wave-group .bar:before,
+.wave-group .bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #5264AE;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.wave-group .bar:before {
+    left: 50%;
+}
+
+.wave-group .bar:after {
+    right: 50%;
+}
+
+.wave-group .input:focus~.bar:before,
+.wave-group .input:focus~.bar:after {
+    width: 50%;
+}
+
+
 
 #imgBaixo {
     position: fixed;

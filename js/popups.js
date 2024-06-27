@@ -1,5 +1,4 @@
 const checkbox = document.getElementById('checkbox');
-const tabsRecorrencia = document.getElementById('tabs-recorrencia');
 
 const resumoConfirmacao = document.getElementById('resumo-reserva')
 const popupConfirmacao = document.getElementById('popup-confirmacao')
@@ -15,7 +14,6 @@ for (let i = 0; i < salas.length; i++) {
             popup.style.display = 'block'
             checkbox.checked = false
             containerPopup.style.display = 'block'
-            tabsRecorrencia.style.display = 'none'
             for (let j = 0; j < diaSelecionado.length; j++) {
                 diaSelecionado[j].textContent = dataSelecionada
             }

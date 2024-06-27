@@ -182,7 +182,7 @@ function checkTime(input) {
     const time = input.value;
     const [hours, minutes] = time.split(':').map(Number);
 
-    if ((hours >= 18 && minutes >= 0) || (hours < 7)) {
+    if ((hours >= 19 && minutes >= 0) || (hours < 7)) {
         alert('Horário inválido');
         input.value = '';
     }
@@ -222,7 +222,7 @@ btnConfirmar.addEventListener('click', () => {
     const timeTermino = document.getElementById('timeFinal').value
     const dataTermino = document.getElementById('dataTermino').value
     if (timeInicio == "" || timeTermino == "") {
-        alert("Preencha os seguintes campos: Inicio e término.")    
+        alert("Preencha os seguintes campos: Inicio e término.")
     }
     else {
         if (checkbox.checked) {
@@ -230,7 +230,7 @@ btnConfirmar.addEventListener('click', () => {
                 alert('Preencha a data final da reserva.')
             }
             else {
-               containerSalas.style.display = 'block'
+                containerSalas.style.display = 'block'
             }
         }
         else {
@@ -247,4 +247,29 @@ btnLimpar.addEventListener('click', () => {
     checkbox.checked = false
     recorrenciaSelecionada.style.display = 'none'
     containerSalas.style.display = 'none'
+})
+
+
+//Popup
+const popup = document.getElementById("popup");
+const salas = document.getElementsByClassName("sala");
+const containerPopup =  document.getElementById('container-popup')
+for (let i = 0; i < salas.length; i++) {
+    salas[i].addEventListener('click', () => {
+        popup.style.display = 'block'
+        containerPopup.style.display = 'flex'
+    })
+}
+
+containerPopup.addEventListener('click', (event) => {
+    if (event.target == containerPopup) {
+        if (popup.style.display == 'block') {
+            popup.style.display = 'none'
+            containerPopup.style.display = 'none'
+        }
+        else {
+            alert('Confirme sua reserva antes de fechar.')
+        }
+
+    }
 })
