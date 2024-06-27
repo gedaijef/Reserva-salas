@@ -86,15 +86,6 @@ function validateTimeRange() {
 }
 
 
-checkbox.addEventListener('change', function (event) {
-    if (event.target.checked) {
-        // Mudando display do Semanalmente e Diariamente
-        tabsRecorrencia.style.display = 'block';
-
-    } else {
-        tabsRecorrencia.style.display = 'none';
-    }
-})
 
 // Quando o usuário clicar em reservar, fazemos a verificação e limpamos o popup
 const nomeReservaEnviar = document.getElementById('nomeReserva')
