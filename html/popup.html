@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container-popup">
+        <div id="popup">
+            <header class="headerPopup">
+                <p>Definir reserva para o dia <span class="diaSelecionado"></span></p>
+                <span class="material-symbols-outlined" id="icon-close">
+                    close
+                </span>
+            </header>
+            <div id="container-form">
+                <form>
+                    <div class="textInputWrapper">
+                        <input placeholder="Nome da reserva" type="text" id="textInput">
+                    </div>
+                    <div id="form_horario_inicio">
+                        <label for="timeInicio">Início:</label>
+                        <input type="time" name="timeInicio" id="timeInicio">
+                    </div>
+                    <div id="form_horario_termino">
+                        <label for="timeFinal">Término:</label>
+                        <input type="time" name="timeFinal" id="timeFinal">
+                    </div>
+                </form>
+                <section id="container-checkbox"><input type="checkbox" class="ui-checkbox" id="checkbox">
+                    <p>Definir recorrência</p>
+                </section>
+
+                <section id="tabs-recorrencia">
+                    <h3 id="semanalmente">Semanalmente</h3>
+                    <p>Data de início: <span class="diaSelecionado"></span></p>
+                    <p>Data de término: <input type="date" id="dataTermino"></p>
+                </section>
+
+                <div id="container-buttons">
+                    <button id="button-cancelar">Cancelar</button>
+                    <button id="button-reservar">Reservar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

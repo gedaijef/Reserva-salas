@@ -23,298 +23,6 @@ body {
     user-select: none;
 }
 
-/*Estilizando o popup de reservas*/
-#container-popup {
-    height: 100vh;
-    position: fixed;
-    width: 100vw;
-    z-index: 2;
-    background-color: rgba(0, 0, 0, 0.225);
-    display: none;
-}
-
-#popup {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    height: fit-content;
-    background-color: white;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    border-radius: 10px;
-    display: none;
-}
-
-#headerPopup {
-    background-color: var(--azul70);
-    color: var(--bg);
-    border-radius: 10px 10px 0px 0px;
-    font-weight: 500;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#headerPopup p {
-    padding-inline: 10px;
-    padding-block: 5px;
-}
-
-#icon-close {
-    cursor: pointer;
-    padding-inline: 10px;
-    padding-block: 5px;
-}
-
-#container-form {
-    padding-inline: 15px;
-    margin-block: 1em;
-}
-
-/*Estilizando caixa de input para nome da reserva*/
-.textInputWrapper {
-    position: relative;
-    width: 50%;
-    margin-block: 12px;
-    --accent-color: var(--font);
-}
-
-.textInputWrapper:before,
-.textInputWrapper:after {
-    content: "";
-    left: 0;
-    right: 0;
-    position: absolute;
-    pointer-events: none;
-    bottom: -1px;
-}
-
-.textInputWrapper:before {
-    transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
-}
-
-.textInputWrapper:focus-within:before {
-    border-bottom: 1px solid var(--accent-color);
-    transform: scaleX(1);
-}
-
-.textInputWrapper:focus-within:after {
-    border-bottom: 2px solid var(--accent-color);
-    transform: scaleX(1);
-}
-
-.textInputWrapper:after {
-    content: "";
-    transform: scaleX(0);
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1) 0ms;
-    border-bottom: 2px solid var(--accent-color);
-}
-
-#textInput {
-    width: 100%;
-    border-radius: 4px 4px 0px 0px;
-    outline: none;
-    border: none;
-    background-color: var(--azul20);
-    cursor: pointer;
-    padding: .2em;
-    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
-    transition-duration: 200ms;
-}
-
-#textInput::placeholder {
-    color: var(--font);
-    font-weight: 300;
-}
-
-/*Estilizando caixas de input de horário*/
-
-#form_horario_inicio,
-#form_horario_termino {
-    padding-block: .5rem;
-}
-
-input[type="date"],
-input[type="time"] {
-    border-radius: 4px;
-    outline: none;
-    border: none;
-    background-color: var(--azul20);
-    cursor: pointer;
-    text-align: center;
-    padding: .1em;
-    margin-left: .2em;
-}
-
-#container-checkbox {
-    display: flex;
-}
-
-/*CHECKBOX*/
-.ui-checkbox,
-.ui-checkbox *,
-.ui-checkbox *::before,
-.ui-checkbox *::after {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-.ui-checkbox {
-    outline: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    color: #fff;
-    border: 1px solid var(--azul70);
-    -webkit-transition: all 0.3s;
-    transition: all 0.3s;
-    cursor: pointer;
-    position: relative;
-}
-
-.ui-checkbox::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    -webkit-box-shadow: 0 0 0 calc(20px / 2.5) var(--azul70);
-    box-shadow: 0 0 0 calc(20px/ 2.5) var(--azul70);
-    border-radius: inherit;
-    opacity: 0;
-    -webkit-transition: all 0.5s cubic-bezier(0.12, 0.4, 0.29, 1.46);
-    -o-transition: all 0.5s cubic-bezier(0.12, 0.4, 0.29, 1.46);
-    transition: all 0.5s cubic-bezier(0.12, 0.4, 0.29, 1.46);
-}
-
-.ui-checkbox::before {
-    top: 40%;
-    left: 50%;
-    content: "";
-    position: absolute;
-    width: 4px;
-    height: 7px;
-    border-right: 2px solid #fff;
-    border-bottom: 2px solid #fff;
-    -webkit-transform: translate(-50%, -50%) rotate(45deg) scale(0);
-    -ms-transform: translate(-50%, -50%) rotate(45deg) scale(0);
-    transform: translate(-50%, -50%) rotate(45deg) scale(0);
-    opacity: 0;
-    -webkit-transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6), opacity 0.1s;
-    -o-transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6), opacity 0.1s;
-    transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6), opacity 0.1s;
-}
-
-.ui-checkbox:checked {
-    background: var(--azul100);
-    border-color: transparent;
-}
-
-.ui-checkbox:checked::before {
-    opacity: 1;
-    -webkit-transform: translate(-50%, -50%) rotate(45deg) scale(1.2);
-    -ms-transform: translate(-50%, -50%) rotate(45deg) scale(1.2);
-    transform: translate(-50%, -50%) rotate(45deg) scale(1.2);
-    -webkit-transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
-    -o-transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
-    transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
-}
-
-.ui-checkbox:active:not(:checked)::after {
-    -webkit-transition: none;
-    -o-transition: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    transition: none;
-    opacity: 1;
-}
-
-#container-checkbox>p {
-    margin-left: .2rem;
-    cursor: default;
-    font-size: .8rem;
-    align-self: center;
-}
-
-/*Estilizando os botões do popup*/
-
-#container-buttons {
-    justify-content: space-around;
-    display: flex;
-    margin-top: 2rem;
-}
-
-#button-cancelar,
-#button-reservar {
-    cursor: pointer;
-    background-color: var(--azul100);
-    color: #fff;
-    outline: none;
-    border: none;
-    padding-block: .5rem;
-    padding-inline: 1rem;
-    border-radius: 4px;
-}
-
-main {
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    z-index: 1;
-    position: relative;
-}
-
-#titleSpot {
-    color: var(--font);
-    letter-spacing: 0.48px;
-    margin-block: 2rem;
-    font-weight: 700;
-    font-size: 2rem;
-    text-align: center;
-}
-
-#imgBaixo {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    display: flex;
-}
-
-#imgBaixo>img {
-    margin-bottom: 15px;
-    margin-right: 15px;
-    width: 19rem;
-}
-
-#barra-lateral>img {
-    height: 100vh;
-    float: left;
-}
-
-#container {
-    width: 100%;
-    height: 100%;
-}
-
-#linkVoltar {
-    margin-left: 3rem;
-    margin-bottom: 1.5rem;
-}
-
-#voltar {
-    color: var(--font);
-}
-
-#conteudo {
-    display: flex;
-    justify-content: space-evenly;
-}
 
 /* calendário */
 
@@ -420,10 +128,10 @@ main {
     display: none;
 }
 
-.salas {
-    width: 35%;
-    height: 27rem;
+#container-salas {
+    height: 15rem;
     overflow-y: scroll;
+    display: none;
 }
 
 .sala {
@@ -472,6 +180,242 @@ main {
     padding-left: 10px;
 }
 
+/* filtros */
+.container {
+    display: flex;
+}
+
+#filtros {
+    height: max-content;
+    width: 36rem;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    margin-bottom: 1rem;
+    display: flex;
+    padding: 1rem;
+    align-items: center;
+}
+
+#horario-cadeiras {
+    border-right: 1.3px solid black;
+    margin-right: 1rem;
+    padding-right: 1rem;
+}
+
+/*Estilizando caixa de input para nome da reserva*/
+.textInputWrapper {
+    position: relative;
+    width: 50%;
+    margin-block: 12px;
+    --accent-color: var(--font);
+}
+
+.textInputWrapper:before,
+.textInputWrapper:after {
+    content: "";
+    left: 0;
+    right: 0;
+    position: absolute;
+    pointer-events: none;
+    bottom: -1px;
+}
+
+.textInputWrapper:before {
+    transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+}
+
+.textInputWrapper:focus-within:before {
+    border-bottom: 1px solid var(--accent-color);
+    transform: scaleX(1);
+}
+
+.textInputWrapper:focus-within:after {
+    border-bottom: 2px solid var(--accent-color);
+    transform: scaleX(1);
+}
+
+.textInputWrapper:after {
+    content: "";
+    transform: scaleX(0);
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+#textInput {
+    width: 100%;
+    border-radius: 4px 4px 0px 0px;
+    outline: none;
+    border: none;
+    background-color: var(--azul20);
+    cursor: pointer;
+    padding: .2em;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 200ms;
+}
+
+#textInput::placeholder {
+    color: var(--font);
+    font-weight: 300;
+}
+
+/*Estilizando caixas de input de horário e de opções*/
+#form_horario_inicio,
+#form_horario_termino {
+    padding-block: .5rem;
+}
+
+input[type="date"],
+input[type="time"], select {
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    background-color: var(--azul20);
+    cursor: pointer;
+    text-align: center;
+    padding: .1em;
+    margin-left: .2em;
+}
+
+#container-checkbox {
+    display: flex;
+    margin: .5rem;
+}
+
+/*CHECKBOX*/
+.ui-checkbox,
+.ui-checkbox *,
+.ui-checkbox *::before,
+.ui-checkbox *::after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.ui-checkbox {
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 4px;
+    color: #fff;
+    border: 1px solid var(--azul70);
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+}
+
+.ui-checkbox::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-box-shadow: 0 0 0 calc(20px / 2.5) var(--azul70);
+    box-shadow: 0 0 0 calc(20px/ 2.5) var(--azul70);
+    border-radius: inherit;
+    opacity: 0;
+    -webkit-transition: all 0.5s cubic-bezier(0.12, 0.4, 0.29, 1.46);
+    -o-transition: all 0.5s cubic-bezier(0.12, 0.4, 0.29, 1.46);
+    transition: all 0.5s cubic-bezier(0.12, 0.4, 0.29, 1.46);
+}
+
+.ui-checkbox::before {
+    top: 40%;
+    left: 50%;
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 7px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    -webkit-transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    -ms-transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    opacity: 0;
+    -webkit-transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6), opacity 0.1s;
+    -o-transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6), opacity 0.1s;
+    transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6), opacity 0.1s;
+}
+
+.ui-checkbox:checked {
+    background: var(--azul100);
+    border-color: transparent;
+}
+
+.ui-checkbox:checked::before {
+    opacity: 1;
+    -webkit-transform: translate(-50%, -50%) rotate(45deg) scale(1.2);
+    -ms-transform: translate(-50%, -50%) rotate(45deg) scale(1.2);
+    transform: translate(-50%, -50%) rotate(45deg) scale(1.2);
+    -webkit-transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+    -o-transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+    transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+}
+
+.ui-checkbox:active:not(:checked)::after {
+    -webkit-transition: none;
+    -o-transition: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    transition: none;
+    opacity: 1;
+}
+
+#container-checkbox>p {
+    margin-left: .2rem;
+    cursor: default;
+    font-size: .8rem;
+    align-self: center;
+}
+
+#recorrencia-selecionada {
+    display: none;
+}
+
+
+/*Estilizando o popup de reservas*/
+
+#popup,
+#popup-confirmacao {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: fit-content;
+    background-color: white;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    border-radius: 10px;
+    display: none;
+}
+
+.headerPopup {
+    background-color: var(--azul70);
+    color: var(--bg);
+    border-radius: 10px 10px 0px 0px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerPopup p {
+    padding-inline: 10px;
+    padding-block: 5px;
+}
+
+#icon-close {
+    cursor: pointer;
+    padding-inline: 10px;
+    padding-block: 5px;
+}
+
+
+
+
 /*TABS*/
 #tabs-recorrencia {
     display: none;
@@ -495,4 +439,79 @@ main {
 #tabs-recorrencia>p {
     font-size: .9rem;
     margin-block: 12px;
+}
+
+/*Estilizando os botões do popup*/
+
+#container-buttons {
+    justify-content: space-around;
+    display: flex;
+    margin-top: 2rem;
+}
+
+#button-cancelar,
+#button-reservar {
+    cursor: pointer;
+    background-color: var(--azul100);
+    color: #fff;
+    outline: none;
+    border: none;
+    padding-block: .5rem;
+    padding-inline: 1rem;
+    border-radius: 4px;
+}
+
+main {
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    z-index: 1;
+    position: relative;
+}
+
+#titleSpot {
+    color: var(--font);
+    letter-spacing: 0.48px;
+    margin-block: 2rem;
+    font-weight: 700;
+    font-size: 2rem;
+    text-align: center;
+}
+
+#imgBaixo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    display: flex;
+}
+
+#imgBaixo>img {
+    margin-bottom: 15px;
+    margin-right: 15px;
+    width: 19rem;
+}
+
+#barra-lateral>img {
+    height: 100vh;
+    float: left;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+}
+
+#linkVoltar {
+    margin-left: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+#voltar {
+    color: var(--font);
+}
+
+#conteudo {
+    display: flex;
+    justify-content: space-evenly;
 }
