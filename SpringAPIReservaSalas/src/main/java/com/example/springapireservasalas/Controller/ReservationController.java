@@ -15,12 +15,13 @@ public class ReservationController {
     private ReservationService reservationService;
 
     @GetMapping("/selecionarTodos")
-    public List<Reservation> getAllReservations() {
+    public List<Reservation> selecionarTodos() {
         return reservationService.selecionarTodos();
     }
 
     @PostMapping("/adicionar")
-    public Reservation createReservation(@RequestBody Reservation reservation) {
+    public Reservation adicionarReserva(@RequestBody Reservation reservation) {
         return reservationService.adicionarReserva(reservation);
     }
+
 }

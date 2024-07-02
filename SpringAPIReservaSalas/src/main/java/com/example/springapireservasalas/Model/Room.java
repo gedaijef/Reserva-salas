@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
+import java.time.LocalTime;
+
 @Entity
 @Data
 @Getter
@@ -34,63 +36,26 @@ public class Room {
     @NotNull(message = "Type cannot be null")
     private String type;
 
-    public Room(Long id, String name, Integer floor, Integer capacity, boolean hasTv, String type) {
+    @NotNull(message = "Horario Inicio Vago from cannot be null")
+    @Column(name = "start_time_free")
+    private LocalTime startTimeFree;
+
+    @NotNull(message = "Horario Fim Vago to cannot be null")
+    @Column(name = "final_time_free")
+    private LocalTime finalTimeFree;
+
+    public Room(Long id, String name, Integer floor, Integer capacity, boolean hasTv, String type, LocalTime startTimeFree, LocalTime finalTimeFree) {
         this.id = id;
         this.name = name;
         this.floor = floor;
         this.capacity = capacity;
         this.hasTv = hasTv;
         this.type = type;
+        this.startTimeFree = startTimeFree;
+        this.finalTimeFree = finalTimeFree;
     }
 
     public Room() {
-    }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getFloor() {
-        return floor;
-    }
-
-    public void setFloor(Integer floor) {
-        this.floor = floor;
-    }
-
-    public Integer getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
-    }
-
-    public boolean isHasTv() {
-        return hasTv;
-    }
-
-    public void setHasTv(boolean hasTv) {
-        this.hasTv = hasTv;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }

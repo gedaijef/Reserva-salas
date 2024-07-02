@@ -5,10 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import jakarta.validation.constraints.*;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Data
@@ -24,25 +22,25 @@ public class Reservation {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     @NotNull(message = "Start time cannot be null")
     @Column(name = "start_time")
-    private Time startTime;
+    private LocalTime startTime;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     @NotNull(message = "Final time cannot be null")
     @Column(name = "final_time")
-    private Time finalTime;
+    private LocalTime finalTime;
 
     @NotNull(message = "Title cannot be null")
     private String title;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @NotNull(message = "Date cannot be null")
-    private Date date;
+    private LocalDate date;
 
-    @NotNull(message = "Day of week cannot be null")
-    @Min(value = 1, message = "Day of week must be greater than 0")
-    @Max(value = 7, message = "Day of week must be less than 8")
-    @Column(name = "day_of_week")
-    private Integer dayOfWeek;
+    @Column(name = "recurring")
+    private boolean recurring;
+
+    @Column(name = "final_date_recurring")
+    private LocalDate final_date_recurring;
 
     @ManyToOne
     @JoinColumn(name = "room_id")
@@ -52,81 +50,17 @@ public class Reservation {
     @JoinColumn(name = "user_id")
     private Users user;
 
-    public Reservation(Long id, Time startTime, Time finalTime, String title, Date date, Integer dayOfWeek, Room room, Users user) {
+    public Reservation(Long id, LocalTime startTime, LocalTime finalTime, String title, LocalDate date, boolean recurring, LocalDate final_date_recurring, Room room, Users user) {
         this.id = id;
         this.startTime = startTime;
         this.finalTime = finalTime;
         this.title = title;
         this.date = date;
-        this.dayOfWeek = dayOfWeek;
+        this.recurring = recurring;
+        this.final_date_recurring = final_date_recurring;
         this.room = room;
         this.user = user;
     }
 
-    public Reservation() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Time getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Time startTime) {
-        this.startTime = startTime;
-    }
-
-    public Time getFinalTime() {
-        return finalTime;
-    }
-
-    public void setFinalTime(Time finalTime) {
-        this.finalTime = finalTime;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Integer getDayOfWeek() {
-        return dayOfWeek;
-    }
-
-    public void setDayOfWeek(Integer dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
-    public Users getUser() {
-        return user;
-    }
-
-    public void setUser(Users user) {
-        this.user = user;
-    }
+    public Reservation() {}
 }
