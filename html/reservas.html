@@ -18,18 +18,32 @@
     <section id="container-popup">
         <div id="popup">
             <header id="header-popup">
-                <h1>Concluir reserva</h1>
+                <h1>Informações da reserva</h1>
             </header>
             <article id="container-informacoes">
-                <div class="wave-group">
-                    <input required="" type="text" class="input">
-                    <span class="bar"></span>
-                    <label class="label">
-                        <span class="label-char" style="--index: 0">Nome da reserva</span>
-                    </label>
+
+                <div id="informacoes-1">
+                    <div class="wave-group">
+                        <input required="" type="text" class="input">
+                        <span class="bar"></span>
+                        <label class="label">
+                            <span class="label-char" style="--index: 0">Nome da reserva</span>
+                        </label>
+                    </div>
+                    <p>Horário de início: <span id="horInicio"></span></p>
+                    <p>Horário de fim: <span id="horFim"></span></p>
+                    <p>Quantidade de cadeiras: <span id="quantCadeiras"></span></p>
                 </div>
-                <!-- <p>Data selecionada: <span class="diaSelecionado"></span></p> -->
+
+                <div id="informacoes-2">
+                    
+                    <p>Número da sala: <span id="numSala"></span></p>
+                    <p>Andar da sala: <span id="andarSala"></span></p>
+                    <p>Tem televisão: <span id="temTv"></span></p>
+                </div>
+
             </article>
+            <button id="confirmar">Confirmar</button>
         </div>
     </section>
     <header id="header-pgn">
@@ -91,7 +105,7 @@
                                 </div>
                             </article>
                             <article id="datas">
-                                <p>Data selecionada: <span class="diaSelecionado"></span></p>
+                                <p>Data selecionada: <span class="diaSelecionado" id="dia"></span></p>
                                 <div id="container-checkbox"><input type="checkbox" class="ui-checkbox" id="checkbox">
                                     <p>Definir recorrência</p>
                                 </div>
@@ -112,13 +126,13 @@
 
                                 <p><span class="material-symbols-outlined">
                                         chair_alt
-                                    </span>5 cadeiras</p>
+                                    </span> <span id="cadeiras">5</span> cadeiras</p>
                                 <p id="span-tv"><span class="material-symbols-outlined">
                                         tv
-                                    </span>Com televisão</p>
+                                    </span><span id="tv">Com televisão</span></p>
                                 <p><span class="material-symbols-outlined">
                                         location_on
-                                    </span>1º andar</p>
+                                    </span><span id="andar">1º andar</span></p>
 
                             </section>
                         </div>

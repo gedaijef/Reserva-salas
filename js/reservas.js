@@ -81,7 +81,6 @@ const adicionarEventListenersParaDias = () => {
 }
 
 calendarioInicio();
-
 prevNextIcon.forEach(icon => {
     icon.addEventListener("click", () => {
         if (icon.id === "prev" && currMonth > 0) {
@@ -137,8 +136,6 @@ for (let i = 0; i < diaSelecionado.length; i++) {
             }
         }
     }
-
-
 }
 
 //colocando o dia em que o usuário clica como data selecionada
@@ -149,9 +146,6 @@ document.querySelectorAll(".days li").forEach(day => {
             day.classList.add("active");
             reserva = [day.textContent];
             dataSelecionada = `${day.textContent}/${currMonth + 1}/${currYear}`;
-            console.log(Number(day.textContent) + 1)
-            console.log(currMonth)
-            console.log(currYear)
             if (currMonth > 9) {
                 dataTermino.setAttribute('min', currYear + "-" + (currMonth + 1) + "-" + (Number(day.textContent) + 1));
             }
@@ -222,7 +216,7 @@ btnConfirmar.addEventListener('click', () => {
     const timeTermino = document.getElementById('timeFinal').value
     const dataTermino = document.getElementById('dataTermino').value
     if (timeInicio == "" || timeTermino == "") {
-        alert("Preencha os seguintes campos: Inicio e término.")
+        alert('Preencha os campos necessários para a reserva.')
     }
     else {
         if (checkbox.checked) {
@@ -249,27 +243,63 @@ btnLimpar.addEventListener('click', () => {
     containerSalas.style.display = 'none'
 })
 
-
 //Popup
 const popup = document.getElementById("popup");
 const salas = document.getElementsByClassName("sala");
-const containerPopup =  document.getElementById('container-popup')
+const containerPopup = document.getElementById('container-popup')
 for (let i = 0; i < salas.length; i++) {
     salas[i].addEventListener('click', () => {
-        popup.style.display = 'block'
+        popup.style.display = 'flex'
         containerPopup.style.display = 'flex'
+        informacoesPopup()
     })
 }
 
+
+
+
+function informacoesPopup() {
+
+    const cadeirasRetornadas = document.getElementById('cadeiras').textContent
+    const tvRetornada = document.getElementById('tv').textContent
+    const andarRetornado = document.getElementById('andar').textContent
+
+    const horInicioPopup = document.getElementById('horInicio')
+    horInicioPopup.innerText = timeInicio.value
+    const horFimPopup = document.getElementById('horFim')
+    horFimPopup.innerText = timeFinal.value
+    const quantCadeirasPopup = document.getElementById('quantCadeiras')
+    quantCadeirasPopup.innerText = cadeirasRetornadas
+    const numSalaPopup = document.getElementById('numSala')
+    const andarSalaPopup = document.getElementById('andarSala')
+    andarSalaPopup.innerText = andarRetornado
+    const tvPopup = document.getElementById('temTv')
+    tvPopup.innerText = tvRetornada
+    const informacoes2 = document.getElementById('informacoes-2')
+    const dia = document.getElementById('dia').textContent
+    const diafinal = document.getElementById('dataTermino').value
+    if (checkbox.checked) {
+        const [year, month, day] = diafinal.split('-');
+        const formattedDate = `${day}/${month}/${year}`;
+        informacoes2.innerHTML += `<p>Dia de início: ${dia}</p>`
+        informacoes2.innerHTML += `<p>Dia de término: ${formattedDate}</p>`
+    }
+    else {
+        informacoes2.innerHTML += `<p>Dia selecionado: ${dia}</p>`
+    }
+}
+
+
+const confirmarReserva = document.getElementById('confirmar')
 containerPopup.addEventListener('click', (event) => {
     if (event.target == containerPopup) {
-        if (popup.style.display == 'block') {
+        if (popup.style.display == 'flex') {
             popup.style.display = 'none'
             containerPopup.style.display = 'none'
         }
-        else {
-            alert('Confirme sua reserva antes de fechar.')
-        }
-
     }
+})
+confirmarReserva.addEventListener('click', () => {
+    popup.style.display = 'none'
+    containerPopup.style.display = 'none'
 })
