@@ -2,10 +2,9 @@ const barra = document.getElementById('barra-lateral');
 const caminho = sessionStorage.getItem("img");
 barra.innerHTML = `<img src="${caminho}" alt="Imagem da barra lateral">`;
 
-let reserva = []
 let dataSelecionada = ""
 let activeClass = ""
-
+let data = ""
 const checkbox = document.getElementById('checkbox');
 const recorrenciaSelecionada = document.getElementById('recorrencia-selecionada');
 const dataTermino = document.getElementById('dataTermino');
@@ -50,37 +49,9 @@ const calendarioInicio = () => {
     prevIcon.classList.toggle("hidden", currYear === currentYear && currMonth <= currentMonth);
     nextIcon.classList.toggle("hidden", currYear === currentYear && currMonth === 11);
 
-    adicionarEventListenersParaDias();
+    adicionarEventListenersParaDias();  // Chama a função para adicionar eventos de clique aos dias
 }
 
-const adicionarEventListenersParaDias = () => {
-    document.querySelectorAll(".days li").forEach(day => {
-        day.addEventListener('click', () => {
-            if (!day.classList.contains("inactive")) {
-                document.querySelectorAll(".days li").forEach(d => d.classList.remove("active"));
-                day.classList.add("active");
-                reserva = [day.textContent];
-                dataSelecionada = `${day.textContent}/${currMonth + 1}/${currYear}`;
-                console.log(Number(day.textContent) + 1);
-                console.log(currMonth);
-                console.log(currYear);
-                if (currMonth > 9) {
-                    dataTermino.setAttribute('min', currYear + "-" + (currMonth + 1) + "-" + (Number(day.textContent) + 1));
-                } else {
-                    dataTermino.setAttribute('min', currYear + "-0" + (currMonth + 1) + "-" + (Number(day.textContent) + 1));
-                }
-
-                dataTermino.setAttribute('max', currYear + "-0" + (currMonth + 2) + "-" + day.textContent);
-
-                for (let i = 0; i < diaSelecionado.length; i++) {
-                    diaSelecionado[i].innerHTML = dataSelecionada;
-                }
-            }
-        });
-    });
-}
-
-calendarioInicio();
 prevNextIcon.forEach(icon => {
     icon.addEventListener("click", () => {
         if (icon.id === "prev" && currMonth > 0) {
@@ -96,76 +67,106 @@ prevNextIcon.forEach(icon => {
         } else {
             date = new Date();
         }
-        calendarioInicio();
+        calendarioInicio();  // Atualiza o calendário
     });
 });
+
+
+function calcularDiaRecorrencia(dia) {
+    let diaMaximo = dia
+    let diaMinimo = dia
+    if (Number(diaMinimo) + 1 < 10) {
+        diaMinimo = "0" + (Number(diaMinimo) + 1)
+    }
+    else {
+        diaMinimo = (Number(diaMinimo) + 1)
+    }
+    if (Number(diaMaximo) < 10) {
+        diaMaximo = "0" + diaMaximo
+    }
+    else {
+        diaMaximo = dia
+    }
+    return { diaMinimo, diaMaximo }
+}
+
+function calcularMesesRecorrencia(mes) {
+    let mesMaximo = mes
+    let mesMinimo = mes
+    if (Number(mesMaximo) + 1 < 10) {
+        mesMaximo = "0" + (Number(mesMaximo) + 1)
+    }
+    else if (Number(mesMaximo) + 1 == 13) {
+        mesMaximo = "01"
+    }
+    else {
+        mesMaximo = (Number(mesMaximo) + 1)
+    }
+
+    if (mesMinimo < 10) {
+        mesMinimo = "0" + mesMinimo
+    }
+    else {
+        mesMinimo = mes
+    }
+    return { mesMinimo, mesMaximo }
+}
+
+
+let meses = {}
+let dias = {}
+function adicionarEventListenersParaDias() {
+    //colocando o dia em que o usuário clica como data selecionada
+    document.querySelectorAll(".days li").forEach(day => {
+        day.addEventListener('click', () => {
+            if (!day.classList.contains("inactive")) {
+                document.querySelectorAll(".days li").forEach(d => d.classList.remove("active"));
+                day.classList.add("active");
+                data = `${day.textContent}/${currMonth + 1}/${currYear}`;
+
+                const dia = day.textContent
+                const mes = currMonth + 1
+                meses = calcularMesesRecorrencia(mes)
+                dias = calcularDiaRecorrencia(dia)
+
+                if (checkbox.checked) {
+                    dataTermino.value = `2024-${meses.mesMinimo}-${dias.diaMinimo}`;
+                    checkbox.checked = false
+                    recorrenciaSelecionada.style.display = 'none';
+                }
+
+                for (let i = 0; i < diaSelecionado.length; i++) {
+                    diaSelecionado[i].innerHTML = data;
+                }
+            }
+        });
+    });
+    dataTermino.value = ''
+}
+
+calendarioInicio();
+
 
 //Colocando o dia de hoje como data selecionada
 const diaSelecionado = document.getElementsByClassName("diaSelecionado");
+
 for (let i = 0; i < diaSelecionado.length; i++) {
-    diaSelecionado[i].innerHTML = date.getDate() + "/" + (currMonth + 1) + "/" + currYear
+    data = date.getDate() + "/" + (currMonth + 1) + "/" + currYear
+    diaSelecionado[i].innerHTML = data
 
-    if (currMonth >= 10) {
-        if (currMonth + 1 > 12) {
-            dataTermino.setAttribute('min', currYear + "-01-" + date.getDate());
-            dataTermino.setAttribute('max', currYear + "-02" + date.getDate());
-        }
-        else {
-            dataTermino.setAttribute('min', currYear + "-" + (currMonth + 1) + "-" + date.getDate());
-            if (currMonth + 2 > 12) {
-                dataTermino.setAttribute('min', currYear + "-01-" + date.getDate());
-            }
-            else {
-                dataTermino.setAttribute('max', currYear + "-" + (currMonth + 2) + "-" + date.getDate());
-            }
-        }
-    }
-    else {
-        if (currMonth + 1 == 10) {
-            dataTermino.setAttribute('min', currYear + "-" + (currMonth + 1) + "-" + date.getDate());
-            dataTermino.setAttribute('max', currYear + "-" + (currMonth + 2) + "-" + date.getDate());
-        }
-
-        else {
-            dataTermino.setAttribute('min', currYear + "-0" + (currMonth + 1) + "-" + (date.getDate() + 1));
-            if (currMonth + 2 == 10) {
-                dataTermino.setAttribute('max', currYear + "-" + (currMonth + 2) + "-" + date.getDate());
-            }
-            else {
-                dataTermino.setAttribute('max', currYear + "-0" + (currMonth + 2) + "-" + date.getDate());
-            }
-        }
-    }
+    const dia = date.getDate()
+    const mes = currMonth + 1
+    meses = calcularMesesRecorrencia(mes)
+    dias = calcularDiaRecorrencia(dia)
 }
 
-//colocando o dia em que o usuário clica como data selecionada
-document.querySelectorAll(".days li").forEach(day => {
-    day.addEventListener('click', () => {
-        if (!day.classList.contains("inactive")) {
-            document.querySelectorAll(".days li").forEach(d => d.classList.remove("active"));
-            day.classList.add("active");
-            reserva = [day.textContent];
-            dataSelecionada = `${day.textContent}/${currMonth + 1}/${currYear}`;
-            if (currMonth > 9) {
-                dataTermino.setAttribute('min', currYear + "-" + (currMonth + 1) + "-" + (Number(day.textContent) + 1));
-            }
-            else {
-                dataTermino.setAttribute('min', currYear + "-0" + (currMonth + 1) + "-" + (Number(day.textContent) + 1));
-            }
 
-            dataTermino.setAttribute('max', currYear + "-0" + (currMonth + 2) + "-" + day.textContent);
 
-            for (let i = 0; i < diaSelecionado.length; i++) {
-                diaSelecionado[i].innerHTML = dataSelecionada;
-            }
-        }
-    });
-});
-
-adicionarEventListenersParaDias(); //Aqui eu atualizo os dias do caléndario do mês seguinte e anterior
 checkbox.addEventListener('change', () => {
     if (checkbox.checked) {
         recorrenciaSelecionada.style.display = 'block';
+        dataTermino.setAttribute('min', `2024-${meses.mesMinimo}-${dias.diaMinimo}`);
+        dataTermino.setAttribute('max', `2024-${meses.mesMaximo}-${dias.diaMaximo}`);
     } else {
         recorrenciaSelecionada.style.display = 'none';
     }
