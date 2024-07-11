@@ -30,6 +30,7 @@ public class RoomService {
             Integer selected_min_capacity,
             Integer selected_max_capacity,
             boolean selected_recurring,
+            LocalDate final_date_recurring,
             String selected_type) {
 
         return roomRepository.findRoomsByTypeAndDateAndStartTimeAndFinalTimeAndCapacity(
@@ -39,6 +40,7 @@ public class RoomService {
                 selected_min_capacity,
                 selected_max_capacity,
                 selected_recurring,
+                final_date_recurring,
                 selected_type);
     }
 }
