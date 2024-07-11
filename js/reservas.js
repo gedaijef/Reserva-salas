@@ -1,6 +1,12 @@
 const barra = document.getElementById('barra-lateral');
 const caminho = sessionStorage.getItem("img");
 barra.innerHTML = `<img src="${caminho}" alt="Imagem da barra lateral">`;
+let tipoSala = ''
+if (caminho == "../img/barra-lateral-reuniao_img.png") {
+    tipoSala = 'Sala de Reunião'
+} else {
+    tipoSala = 'Sala de Aula'
+}
 
 let dataSelecionada = ""
 let activeClass = ""
@@ -211,28 +217,30 @@ document.getElementById('timeFinal').addEventListener('change', function () {
     validateTimeRange();
 });
 
-//Funcionalidade do botão confirmar
+// Função para o botão de confirmar
 btnConfirmar.addEventListener('click', () => {
-    const timeInicio = document.getElementById('timeInicio').value
-    const timeTermino = document.getElementById('timeFinal').value
-    const dataTermino = document.getElementById('dataTermino').value
-    if (timeInicio == "" || timeTermino == "") {
-        alert('Preencha os campos necessários para a reserva.')
-    }
-    else {
+    const timeInicio = document.getElementById('timeInicio').value;
+    const timeTermino = document.getElementById('timeFinal').value;
+    const dataTermino = document.getElementById('dataTermino').value;
+
+    if (timeInicio === "" || timeTermino === "") {
+        alert('Preencha os campos necessários para a reserva.');
+    } else {
         if (checkbox.checked) {
-            if (dataTermino == "") {
-                alert('Preencha a data final da reserva.')
+            if (dataTermino === "") {
+                alert('Preencha a data final da reserva.');
+            } else {
+                containerSalas.style.display = 'block';
+                const booleanRecorrencia = true;
+                fetchData(booleanRecorrencia);
             }
-            else {
-                containerSalas.style.display = 'block'
-            }
-        }
-        else {
-            containerSalas.style.display = 'block'
+        } else {
+            containerSalas.style.display = 'block';
+            const booleanRecorrencia = false;
+            fetchData(booleanRecorrencia);
         }
     }
-})
+});
 
 //Funcionalidade do botão limpar
 btnLimpar.addEventListener('click', () => {
@@ -304,3 +312,89 @@ confirmarReserva.addEventListener('click', () => {
     popup.style.display = 'none'
     containerPopup.style.display = 'none'
 })
+
+
+//FETCH 
+let isFetching = false;
+
+function fetchData(booleanRecorrencia) {
+    if (isFetching) return;
+    isFetching = true;
+
+    console.log('fetchData chamada com booleanRecorrencia:', booleanRecorrencia);
+
+    // PUXANDO A HORA DE INÍCIO DO EVENTO E FORMATANDO
+    const timeInicio = document.getElementById('timeInicio').value + ':00';
+    const timeTermino = document.getElementById('timeFinal').value + ':00';
+    const dia = document.getElementById('dia').innerHTML;
+    const [day, month, year] = dia.split('/');
+    const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    const quantCadeira = document.getElementById('iest').value;
+    const [minimo, maximo] = quantCadeira.split('-');
+
+    let numero = ''
+    let cadeiras = ''
+    let tv = ''
+    let andar = ''
+    if (booleanRecorrencia) {
+        const dataTermino = document.getElementById('dataTermino').value;
+        fetch(`http://localhost:8080/room/filtrarSalas?selected_date=${formattedDate}&selected_start_time=${timeInicio}&selected_final_time=${timeTermino}&selected_min_capacity=${minimo}&selected_max_capacity=${maximo}&selected_recurring=true&final_date_recurring=${dataTermino}&selected_type=${tipoSala}`)
+            .then(response => response.json())
+            .then(data => {
+                for (let i = 0; i < data.length; i++) {
+                    numero = data[i].name
+                    cadeiras = data[i].capacity
+                    tv = data[i].hasTv
+                    andar = data[i].floor
+                    informacoesFetch(numero, cadeiras, tv, andar)
+                }
+                isFetching = false;
+            })
+            .catch(error => {
+                console.error(error);
+                isFetching = false;
+            });
+    } else {
+        fetch(`http://localhost:8080/room/filtrarSalas?selected_date=${formattedDate}&selected_start_time=${timeInicio}&selected_final_time=${timeTermino}&selected_min_capacity=${minimo}&selected_max_capacity=${maximo}&selected_recurring=true&final_date_recurring=${formattedDate}&selected_type=${tipoSala}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                for (let i = 0; i < data.length; i++) {
+                    numero = data[i].name
+                    cadeiras = data[i].capacity
+                    tv = data[i].hasTv
+                    andar = data[i].floor
+                    informacoesFetch(numero, cadeiras, tv, andar)
+                }
+                isFetching = false;
+            })
+            .catch(error => {
+                console.error(error);
+                isFetching = false;
+            });
+    }
+}
+
+
+function informacoesFetch(numero, cadeiras, tv, andar) {
+    if (tv) {
+        tv = "Com "
+    }
+    else {
+        tv = "Sem "
+    }
+    containerSalas.innerHTML += `<div class="sala">
+                            <h2>${numero}</h2>
+                            <section id="container-info-sala">
+                                <p><span class="material-symbols-outlined">
+                                        chair_alt
+                                    </span> <span id="cadeiras">${cadeiras}</span> cadeira(s)</p>
+                                <p id="span-tv"><span class="material-symbols-outlined">
+                                        tv
+                                    </span><span id="tv">${tv} televisão</span></p>
+                                <p><span class="material-symbols-outlined">
+                                        location_on
+                                    </span><span id="andar">${andar}º andar</span></p>
+                            </section>
+                        </div>`
+}

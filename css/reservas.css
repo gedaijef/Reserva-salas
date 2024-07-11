@@ -258,6 +258,14 @@ main {
     border-inline: 1px solid var(--font);
 }
 
+#cadeiras {
+    padding-right: .2rem;
+}
+
+.material-symbols-outlined {
+    padding-right: .5rem;
+}
+
 
 /* filtros */
 #container-filtros {
