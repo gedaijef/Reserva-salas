@@ -40,6 +40,7 @@ public class RoomController {
             @RequestParam Integer selected_min_capacity,
             @RequestParam Integer selected_max_capacity,
             @RequestParam boolean selected_recurring,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate final_date_recurring,
             @RequestParam String selected_type) {
 
         return roomService.filtrarSalasPorTipoDataHorarioCapacidade(
@@ -49,6 +50,7 @@ public class RoomController {
                 selected_min_capacity,
                 selected_max_capacity,
                 selected_recurring,
+                final_date_recurring,
                 selected_type);
     }
 }
