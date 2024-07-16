@@ -190,7 +190,8 @@ main {
     margin-top: 30px;
 }
 
-.days li.inactive {
+.days li.inactive,
+.days li.filtro-inativo {
     color: #aaa;
     cursor: not-allowed;
 }
@@ -216,6 +217,19 @@ main {
 }
 
 .hidden {
+    display: none;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+#alerta-sem-sala {
+    justify-self: center;
+    align-self: center;
+    color: #383838;
+    font-weight: 500;
     display: none;
 }
 
@@ -277,6 +291,7 @@ main {
     margin-bottom: 1rem;
     flex-direction: column;
 }
+
 
 #headerFiltros {
     background-color: var(--azul70);
@@ -588,7 +603,9 @@ div#informacoes-2>p {
     width: 50%;
 }
 
-
+#datas>p {
+    padding-block: .3rem;
+}
 
 #imgBaixo {
     position: fixed;
@@ -601,4 +618,10 @@ div#informacoes-2>p {
     margin-bottom: 15px;
     margin-right: 15px;
     width: 19rem;
+}
+
+.desativado {
+    cursor: not-allowed;
+    color: gray;
+    border-color: gray;
 }

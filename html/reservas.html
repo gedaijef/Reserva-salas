@@ -24,7 +24,7 @@
 
                 <div id="informacoes-1">
                     <div class="wave-group">
-                        <input required="" type="text" class="input">
+                        <input required="" type="text" class="input" id="nomeReserva">
                         <span class="bar"></span>
                         <label class="label">
                             <span class="label-char" style="--index: 0">Nome da reserva</span>
@@ -36,17 +36,19 @@
                 </div>
 
                 <div id="informacoes-2">
-                    
-                    <p>Número da sala: <span id="numSala"></span></p>
+                    <p>Número da sala: <span id="numSalaPopup"></span></p>
                     <p>Andar da sala: <span id="andarSala"></span></p>
                     <p>Tem televisão: <span id="temTv"></span></p>
+                    <span id="datas">
+
+                    </span>
                 </div>
 
             </article>
             <button id="confirmar">Confirmar</button>
         </div>
     </section>
-    <header id="header-pgn">
+    <header id="header-pgn" >
         <div>
             <img src="../img/Logo-J_F.webp" alt="Logo institutojef" id="logo-instituto">
             <h1>GEDAI</h1>
@@ -96,12 +98,8 @@
                                     <label for="timeFinal">Término:</label>
                                     <input type="time" name="timeFinal" id="timeFinal">
                                 </div>
-                                <div>
-                                    <label for="iest">Quantidade de cadeiras:</label>
-                                    <select name="est" id="iest">
-                                        <option value="1-5">1 - 5</option>
-                                        <option value="6-8">6 - 8</option>
-                                    </select>
+                                <div id="label-cadeiras">
+                                    
                                 </div>
                             </article>
                             <article id="datas">
@@ -119,8 +117,9 @@
                             <button id="btn-confirmar">Confirmar</button>
                         </section>
                     </section>
+                    <h3 id="alerta-sem-sala">Não há salas disponíveis :(</h3>
                     <section id="container-salas">
-                        
+                       
                     </section>
                 </aside>
             </section>

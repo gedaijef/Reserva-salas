@@ -2,10 +2,18 @@ const barra = document.getElementById('barra-lateral');
 const caminho = sessionStorage.getItem("img");
 barra.innerHTML = `<img src="${caminho}" alt="Imagem da barra lateral">`;
 let tipoSala = ''
+const labelCadeiras = document.getElementById('label-cadeiras');
 if (caminho == "../img/barra-lateral-reuniao_img.png") {
     tipoSala = 'Sala de Reunião'
+    labelCadeiras.innerHTML = `
+                                    <label for="iest">Quantidade de cadeiras:</label>
+                                    <select name="est" id="iest">
+                                        <option value="1-5">1 - 5</option>
+                                        <option value="6-8">6 - 8</option>
+                                    </select>`
 } else {
     tipoSala = 'Sala de Aula'
+    labelCadeiras.innerHTML = '<p>Quantidade de cadeiras: <span id="iest">25</span></p>'
 }
 
 let dataSelecionada = ""
@@ -125,7 +133,7 @@ function adicionarEventListenersParaDias() {
     //colocando o dia em que o usuário clica como data selecionada
     document.querySelectorAll(".days li").forEach(day => {
         day.addEventListener('click', () => {
-            if (!day.classList.contains("inactive")) {
+            if (!day.classList.contains("inactive") && !day.classList.contains("filtro-inativo")) {
                 document.querySelectorAll(".days li").forEach(d => d.classList.remove("active"));
                 day.classList.add("active");
                 data = `${day.textContent}/${currMonth + 1}/${currYear}`;
@@ -222,102 +230,35 @@ btnConfirmar.addEventListener('click', () => {
     const timeInicio = document.getElementById('timeInicio').value;
     const timeTermino = document.getElementById('timeFinal').value;
     const dataTermino = document.getElementById('dataTermino').value;
-
-    if (timeInicio === "" || timeTermino === "") {
-        alert('Preencha os campos necessários para a reserva.');
-    } else {
-        if (checkbox.checked) {
-            if (dataTermino === "") {
-                alert('Preencha a data final da reserva.');
+    if (btnConfirmar.textContent == 'Confirmar') {
+        if (timeInicio === "" || timeTermino === "") {
+            alert('Preencha os campos necessários para a reserva.');
+        } else {
+            if (checkbox.checked) {
+                if (dataTermino === "") {
+                    alert('Preencha a data final da reserva.');
+                } else {
+                    const booleanRecorrencia = true;
+                    fetchData(booleanRecorrencia);
+                }
             } else {
-                containerSalas.style.display = 'block';
-                const booleanRecorrencia = true;
+                const booleanRecorrencia = false;
                 fetchData(booleanRecorrencia);
             }
-        } else {
-            containerSalas.style.display = 'block';
-            const booleanRecorrencia = false;
-            fetchData(booleanRecorrencia);
         }
+    }
+    else {
+        containerSalas.style.display = 'none'
+        const alerta = document.getElementById('alerta-sem-sala');
+        alerta.style.display = 'none';
+        ativarFiltros()
     }
 });
 
-//Funcionalidade do botão limpar
-btnLimpar.addEventListener('click', () => {
-    document.getElementById('timeInicio').value = ""
-    document.getElementById('timeFinal').value = ""
-    document.getElementById('dataTermino').value = ""
-    checkbox.checked = false
-    recorrenciaSelecionada.style.display = 'none'
-    containerSalas.style.display = 'none'
-})
-
-//Popup
-const popup = document.getElementById("popup");
-const salas = document.getElementsByClassName("sala");
-const containerPopup = document.getElementById('container-popup')
-for (let i = 0; i < salas.length; i++) {
-    salas[i].addEventListener('click', () => {
-        popup.style.display = 'flex'
-        containerPopup.style.display = 'flex'
-        informacoesPopup()
-    })
-}
-
-
-
-
-function informacoesPopup() {
-
-    const cadeirasRetornadas = document.getElementById('cadeiras').textContent
-    const tvRetornada = document.getElementById('tv').textContent
-    const andarRetornado = document.getElementById('andar').textContent
-
-    const horInicioPopup = document.getElementById('horInicio')
-    horInicioPopup.innerText = timeInicio.value
-    const horFimPopup = document.getElementById('horFim')
-    horFimPopup.innerText = timeFinal.value
-    const quantCadeirasPopup = document.getElementById('quantCadeiras')
-    quantCadeirasPopup.innerText = cadeirasRetornadas
-    const numSalaPopup = document.getElementById('numSala')
-    const andarSalaPopup = document.getElementById('andarSala')
-    andarSalaPopup.innerText = andarRetornado
-    const tvPopup = document.getElementById('temTv')
-    tvPopup.innerText = tvRetornada
-    const informacoes2 = document.getElementById('informacoes-2')
-    const dia = document.getElementById('dia').textContent
-    const diafinal = document.getElementById('dataTermino').value
-    if (checkbox.checked) {
-        const [year, month, day] = diafinal.split('-');
-        const formattedDate = `${day}/${month}/${year}`;
-        informacoes2.innerHTML += `<p>Dia de início: ${dia}</p>`
-        informacoes2.innerHTML += `<p>Dia de término: ${formattedDate}</p>`
-    }
-    else {
-        informacoes2.innerHTML += `<p>Dia selecionado: ${dia}</p>`
-    }
-}
-
-
-const confirmarReserva = document.getElementById('confirmar')
-containerPopup.addEventListener('click', (event) => {
-    if (event.target == containerPopup) {
-        if (popup.style.display == 'flex') {
-            popup.style.display = 'none'
-            containerPopup.style.display = 'none'
-        }
-    }
-})
-confirmarReserva.addEventListener('click', () => {
-    popup.style.display = 'none'
-    containerPopup.style.display = 'none'
-})
-
-
 //FETCH 
 let isFetching = false;
-
 function fetchData(booleanRecorrencia) {
+    containerSalas.innerHTML = ''
     if (isFetching) return;
     isFetching = true;
 
@@ -329,8 +270,18 @@ function fetchData(booleanRecorrencia) {
     const dia = document.getElementById('dia').innerHTML;
     const [day, month, year] = dia.split('/');
     const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-    const quantCadeira = document.getElementById('iest').value;
-    const [minimo, maximo] = quantCadeira.split('-');
+    const quantCadeira = document.getElementById('iest');
+    let maximo = ''
+    let minimo = ''
+
+    if (tipoSala == 'Sala de Reunião') {
+        minimo = quantCadeira.value.split('-')[0]
+        maximo = quantCadeira.value.split('-')[1]
+    }
+    else {
+        minimo = quantCadeira.textContent
+        maximo = quantCadeira.textContent
+    }
 
     let numero = ''
     let cadeiras = ''
@@ -341,14 +292,23 @@ function fetchData(booleanRecorrencia) {
         fetch(`http://localhost:8080/room/filtrarSalas?selected_date=${formattedDate}&selected_start_time=${timeInicio}&selected_final_time=${timeTermino}&selected_min_capacity=${minimo}&selected_max_capacity=${maximo}&selected_recurring=true&final_date_recurring=${dataTermino}&selected_type=${tipoSala}`)
             .then(response => response.json())
             .then(data => {
-                for (let i = 0; i < data.length; i++) {
-                    numero = data[i].name
-                    cadeiras = data[i].capacity
-                    tv = data[i].hasTv
-                    andar = data[i].floor
-                    informacoesFetch(numero, cadeiras, tv, andar)
+                console.log(data)
+                if (data.length == 0) {
+                    const alerta = document.getElementById('alerta-sem-sala');
+                    alerta.style.display = 'block';
+                }
+                else {
+                    for (let i = 0; i < data.length; i++) {
+                        numero = data[i].name
+                        cadeiras = data[i].capacity
+                        tv = data[i].hasTv
+                        andar = data[i].floor
+                        informacoesFetch(numero, cadeiras, tv, andar)
+                    }
+                    containerSalas.style.display = 'block';
                 }
                 isFetching = false;
+
             })
             .catch(error => {
                 console.error(error);
@@ -358,24 +318,35 @@ function fetchData(booleanRecorrencia) {
         fetch(`http://localhost:8080/room/filtrarSalas?selected_date=${formattedDate}&selected_start_time=${timeInicio}&selected_final_time=${timeTermino}&selected_min_capacity=${minimo}&selected_max_capacity=${maximo}&selected_recurring=true&final_date_recurring=${formattedDate}&selected_type=${tipoSala}`)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                for (let i = 0; i < data.length; i++) {
-                    numero = data[i].name
-                    cadeiras = data[i].capacity
-                    tv = data[i].hasTv
-                    andar = data[i].floor
-                    informacoesFetch(numero, cadeiras, tv, andar)
+                console.log(data)
+                if (data.length == 0) {
+                    const alerta = document.getElementById('alerta-sem-sala');
+                    alerta.style.display = 'block';
+                }
+                else {
+                    for (let i = 0; i < data.length; i++) {
+                        numero = data[i].name
+                        cadeiras = data[i].capacity
+                        tv = data[i].hasTv
+                        andar = data[i].floor
+                        informacoesFetch(numero, cadeiras, tv, andar)
+                    }
+                    containerSalas.style.display = 'block';
                 }
                 isFetching = false;
+
             })
             .catch(error => {
                 console.error(error);
                 isFetching = false;
             });
     }
+
+
+    desativarFiltros()
 }
 
-
+//Informações das salas
 function informacoesFetch(numero, cadeiras, tv, andar) {
     if (tv) {
         tv = "Com "
@@ -383,8 +354,8 @@ function informacoesFetch(numero, cadeiras, tv, andar) {
     else {
         tv = "Sem "
     }
-    containerSalas.innerHTML += `<div class="sala">
-                            <h2>${numero}</h2>
+    containerSalas.innerHTML += `<div class="sala" onclick="ativarPopup(event)">
+                            <h2 id="numSala">${numero}</h2>
                             <section id="container-info-sala">
                                 <p><span class="material-symbols-outlined">
                                         chair_alt
@@ -397,4 +368,188 @@ function informacoesFetch(numero, cadeiras, tv, andar) {
                                     </span><span id="andar">${andar}º andar</span></p>
                             </section>
                         </div>`
+
+}
+
+//Funcionalidade do botão limpar
+btnLimpar.addEventListener('click', () => {
+    ativarFiltros()
+    document.getElementById('timeInicio').value = ""
+    document.getElementById('timeFinal').value = ""
+    document.getElementById('dataTermino').value = ""
+    checkbox.checked = false
+    recorrenciaSelecionada.style.display = 'none'
+    containerSalas.style.display = 'none'
+
+})
+
+//Popup
+const popup = document.getElementById("popup");
+const containerPopup = document.getElementById('container-popup');
+function ativarPopup(event) {
+    const sala = event.currentTarget;
+    const numero = sala.querySelector('#numSala').innerText;
+    const cadeiras = sala.querySelector('#cadeiras').innerText;
+    const tv = sala.querySelector('#tv').innerText;
+    const andar = sala.querySelector('#andar').innerText;
+
+    popup.style.display = 'flex';
+    containerPopup.style.display = 'flex';
+    informacoesPopup(numero, cadeiras, tv, andar);
+}
+
+let informacoesReserva = []
+//Informações do popup
+function informacoesPopup(numero, cadeiras, tv, andar) {
+    const inputNomeReserva = document.getElementById('nomeReserva')
+    inputNomeReserva.disabled = false
+    inputNomeReserva.classList.remove('desativado')
+
+    const horInicioPopup = document.getElementById('horInicio')
+    horInicioPopup.innerText = timeInicio.value
+
+    const horFimPopup = document.getElementById('horFim')
+    horFimPopup.innerText = timeFinal.value
+
+    const quantCadeirasPopup = document.getElementById('quantCadeiras')
+    quantCadeirasPopup.innerText = cadeiras
+
+    const salaPopup = document.getElementById('numSalaPopup')
+    salaPopup.innerText = numero
+
+    const andarSalaPopup = document.getElementById('andarSala')
+    andarSalaPopup.innerText = andar
+
+    const tvPopup = document.getElementById('temTv')
+    tvPopup.innerText = tv
+
+    const datas = document.getElementById('datas')
+    const dia = document.getElementById('dia').textContent
+    const diafinal = document.getElementById('dataTermino').value
+
+    informacoesReserva = [timeInicio.value,  timeFinal.value, cadeiras, numero, andar, tv]
+    if (checkbox.checked) {
+        const [year, month, day] = diafinal.split('-');
+        const formattedDate = `${day}/${month}/${year}`;
+        datas.innerHTML = `<p>Dia de início: ${dia}</p>`
+        datas.innerHTML += `<p>Dia de término: ${formattedDate}</p>`
+        informacoesReserva.push(dia, formattedDate)
+    }
+    else {
+        datas.innerHTML = `<p>Dia selecionado: ${dia}</p>`
+        informacoesReserva.push(dia)
+    }
+    console.log(informacoesReserva)
+   
+}
+
+//Fecha o popup se clicar fora dele
+const confirmarReserva = document.getElementById('confirmar')
+containerPopup.addEventListener('click', (event) => {
+    if (event.target == containerPopup) {
+        if (popup.style.display == 'flex') {
+            popup.style.display = 'none'
+            containerPopup.style.display = 'none'
+        }
+    }
+})
+
+//Confirmar reserva e fechar popup
+confirmarReserva.addEventListener('click', () => {
+    const nomeReserva = document.getElementById('nomeReserva').value.trim()
+    if (nomeReserva == "") {
+        alert("Por favor, preencha o campo de nome da reserva.")
+    }
+    else {
+        alert("Reserva concluída!")
+        popup.style.display = 'none'
+        containerPopup.style.display = 'none'
+        insercao()
+    }
+
+})
+
+function desativarFiltros() {
+    checkbox.disabled = true
+    checkbox.classList.add('desativado')
+    document.getElementById('filtros').classList.add
+        ('desativado')
+    const select = document.getElementById('iest')
+    select.classList.add('desativado')
+    select.disabled = true
+    const inputs = document.getElementsByTagName('input')
+
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].disabled = true
+        inputs[i].classList.add('desativado')
+    }
+
+    btnConfirmar.innerText = 'Editar'
+
+    let listItems = document.querySelectorAll('.days li');
+
+    // Itera sobre cada item da lista
+    listItems.forEach(item => {
+        if (item.className.trim() == "active" || item.className.trim() == "") {
+            item.classList.add('filtro-inativo')
+        }
+
+    })
+}
+
+function ativarFiltros() {
+    const alerta = document.getElementById('alerta-sem-sala');
+    alerta.style.display = 'none';
+    checkbox.disabled = false
+    checkbox.classList.remove('desativado')
+    document.getElementById('filtros').classList.remove
+        ('desativado')
+    const select = document.getElementById('iest')
+    select.classList.remove('desativado')
+    select.disabled = false
+    const inputs = document.getElementsByTagName('input')
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].disabled = false
+        inputs[i].classList.remove('desativado')
+    }
+    btnConfirmar.innerText = 'Confirmar'
+
+    let listItems = document.querySelectorAll('.days li');
+    // Itera sobre cada item da lista
+    listItems.forEach(item => {
+        if (item.classList.contains("filtro-inativo")) {
+            item.classList.remove('filtro-inativo')
+        }
+
+    })
+}
+
+//Inserir reserva
+function insercao() {
+    const url = 'http://localhost:8080/reservation/adicionar';
+
+    const dados = {
+        "startTime": "14:20:00",
+        "finalTime": "15:20:00",
+        "title": "Reunião do jedi",
+        "date": "18/06/2024",
+        "name":"102"
+    };
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dados)
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+
+    location.reload()
 }
