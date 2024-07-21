@@ -32,13 +32,14 @@ public class Reservation {
     @NotNull(message = "Title cannot be null")
     private String title;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @NotNull(message = "Date cannot be null")
     private LocalDate date;
 
     @Column(name = "recurring")
     private boolean recurring;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "final_date_recurring")
     private LocalDate final_date_recurring;
 
@@ -46,11 +47,10 @@ public class Reservation {
     @JoinColumn(name = "room_id")
     private Room room;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Users user;
+    @Column(name = "user_id")
+    private Long user;
 
-    public Reservation(Long id, LocalTime startTime, LocalTime finalTime, String title, LocalDate date, boolean recurring, LocalDate final_date_recurring, Room room, Users user) {
+    public Reservation(Long id, LocalTime startTime, LocalTime finalTime, String title, LocalDate date, boolean recurring, LocalDate final_date_recurring, Room room, Long user) {
         this.id = id;
         this.startTime = startTime;
         this.finalTime = finalTime;
@@ -63,4 +63,5 @@ public class Reservation {
     }
 
     public Reservation() {}
+
 }

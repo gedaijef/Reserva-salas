@@ -2,8 +2,11 @@ package com.example.springapireservasalas.Controller;
 import com.example.springapireservasalas.Model.Reservation;
 import com.example.springapireservasalas.Service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -19,9 +22,15 @@ public class ReservationController {
         return reservationService.selecionarTodos();
     }
 
-    @PostMapping("/adicionar")
-    public Reservation adicionarReserva(@RequestBody Reservation reservation) {
-        return reservationService.adicionarReserva(reservation);
+    @PostMapping("/criar")
+    public ResponseEntity<Reservation> createReservation(@RequestParam String roomName, @RequestBody Reservation reservationDetails) {
+        Reservation newReservation = reservationService.createReservation(roomName, reservationDetails);
+        return ResponseEntity.ok(newReservation);
     }
 
+//    @PostMapping("/criarSemRecorrencia")
+//    public ResponseEntity<Reservation> createReservationNoRecurring(@RequestParam String roomName, @RequestBody LocalTime startTime, @RequestBody LocalTime finalTime, @RequestBody String title, @RequestBody LocalDate date, boolean recurring) {
+//        Reservation newReservation = reservationService.createReservationNoRecurring(roomName, startTime, finalTime, title, date, recurring);
+//        return ResponseEntity.ok(newReservation);
+//    }
 }
