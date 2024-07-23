@@ -3,7 +3,7 @@ const caminho = sessionStorage.getItem("img");
 barra.innerHTML = `<img src="${caminho}" alt="Imagem da barra lateral">`;
 let tipoSala = ''
 const labelCadeiras = document.getElementById('label-cadeiras');
-if (caminho == "../img/barra-lateral-reuniao_img.png") {
+if (caminho == "../img/barra-lateral-reuniao_img.webp") {
     tipoSala = 'Sala de Reunião'
     labelCadeiras.innerHTML = `
                                     <label for="iest">Quantidade de cadeiras:</label>
@@ -427,20 +427,50 @@ function informacoesPopup(numero, cadeiras, tv, andar) {
     const dia = document.getElementById('dia').textContent
     const diafinal = document.getElementById('dataTermino').value
 
-    informacoesReserva = [timeInicio.value,  timeFinal.value, cadeiras, numero, andar, tv]
-    if (checkbox.checked) {
+    informacoesReserva.push({
+        "inicio": timeInicio.value + ':00',
+        "final": timeFinal.value + ':00',
+        "cadeiras": cadeiras,
+        "numero": numero,
+        "andar": andar,
+        "tv": tv
+    });
+    //Separando a data de início para ficar no padrão do back (yyy-mm-dd)
+    let [dayInicial, monthInicial, yearInicial] = dia.split('/');
+
+    //verificando se o mês e o dia são menores que dez, se forem, colocar um zero  na frente para se adequarem ao padrão
+    if (monthInicial < 10) {
+        monthInicial = '0' + monthInicial
+    }
+
+    if (dayInicial < 10) {
+        dayInicial = '0' + dayInicial
+    }
+
+    const diaInicialFormatado = `${yearInicial}-${monthInicial}-${dayInicial}`
+
+    //Formatando o popup, dependendo da recorrência
+    if (checkbox.checked == true) {
+
+        //Mudando o formato da data para mostrar ao usuário
         const [year, month, day] = diafinal.split('-');
         const formattedDate = `${day}/${month}/${year}`;
         datas.innerHTML = `<p>Dia de início: ${dia}</p>`
         datas.innerHTML += `<p>Dia de término: ${formattedDate}</p>`
-        informacoesReserva.push(dia, formattedDate)
+
+
+
+        informacoesReserva[0].recorrencia = true;
+        informacoesReserva[0].dia_inicial = diaInicialFormatado;
+        informacoesReserva[0].dia_final = diafinal;
     }
     else {
         datas.innerHTML = `<p>Dia selecionado: ${dia}</p>`
-        informacoesReserva.push(dia)
+
+        informacoesReserva[0].recorrencia = false;
+        informacoesReserva[0].dia_inicial = diaInicialFormatado;
+
     }
-    console.log(informacoesReserva)
-   
 }
 
 //Fecha o popup se clicar fora dele
@@ -461,11 +491,13 @@ confirmarReserva.addEventListener('click', () => {
         alert("Por favor, preencha o campo de nome da reserva.")
     }
     else {
-        alert("Reserva concluída!")
+        informacoesReserva[0].nome_reserva = nomeReserva
         popup.style.display = 'none'
         containerPopup.style.display = 'none'
-        insercao()
+        insercao(informacoesReserva)
     }
+
+
 
 })
 
@@ -525,16 +557,30 @@ function ativarFiltros() {
 }
 
 //Inserir reserva
-function insercao() {
-    const url = 'http://localhost:8080/reservation/adicionar';
+function insercao(informacoesReserva) {
+    const url = `http://localhost:8080/reservation/criar?roomName=${informacoesReserva[0].numero}`;
+    let dados = ''
 
-    const dados = {
-        "startTime": "14:20:00",
-        "finalTime": "15:20:00",
-        "title": "Reunião do jedi",
-        "date": "18/06/2024",
-        "name":"102"
-    };
+    if (informacoesReserva[0].recorrencia == true) {
+        dados = {
+            "startTime": informacoesReserva[0].inicio,
+            "finalTime": informacoesReserva[0].final,
+            "title": informacoesReserva[0].nome_reserva,
+            "date": informacoesReserva[0].dia_inicial,
+            "recurring": true,
+            "final_date_recurring": informacoesReserva[0].dia_final
+        };
+    } else {
+        dados = {
+            "startTime": informacoesReserva[0].inicio,
+            "finalTime": informacoesReserva[0].final,
+            "title": informacoesReserva[0].nome_reserva,
+            "date": informacoesReserva[0].dia_inicial,
+            "recurring": false,
+            "final_date_recurring": informacoesReserva[0].dia_inicial
+        };
+    }
+
 
     fetch(url, {
         method: 'POST',
@@ -551,5 +597,6 @@ function insercao() {
             console.error('Error:', error);
         });
 
+    alert("Reserva concluída!")
     location.reload()
 }
