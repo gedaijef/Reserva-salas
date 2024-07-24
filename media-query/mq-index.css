@@ -2,7 +2,6 @@
 
     #imgCima>img,
     #imgBaixo>img {
-        opacity: .6;
         width: 12rem;
     }
 
@@ -27,5 +26,67 @@
 }
 
 @media screen and (min-width: 600px) and (max-width: 768px) {
-    
+
+    #imgCima>img,
+    #imgBaixo>img {
+        width: 13rem;
+    }
+
+    #titleSpot {
+        font-size: 1.6rem;
+    }
+
+    section {
+        gap: 2rem;
+    }
+
+    .room>img {
+        width: 10rem;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+
+    #imgCima>img,
+    #imgBaixo>img {
+        width: 15rem;
+    }
+
+    #titleSpot {
+        font-size: 1.8rem;
+    }
+
+    section {
+        gap: 2rem;
+    }
+
+    .room>img {
+        width: 13rem;
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+
+    #imgCima>img,
+    #imgBaixo>img {
+        width: 16rem;
+    }
+
+    main {
+        gap: 1rem;
+    }
+
+    section {
+        gap: 3rem;
+    }
+
+    .room>img {
+        width: 14rem;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .room>img {
+        width: 15rem;
+    }
 }
