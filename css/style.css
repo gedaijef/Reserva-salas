@@ -42,7 +42,7 @@ body {
     width: 19rem;
 }
 
-div>img {
+.room>img {
     width: 15rem;
 }
 
@@ -51,7 +51,7 @@ main {
     justify-content: center;
     align-items: center;
     display: flex;
-    text-align: center;
+    flex-direction: column;
 }
 
 #titleSpot {
@@ -62,32 +62,11 @@ main {
     font-size: 2rem;
 }
 
-article {
+section {
     display: flex;
     gap: 3rem;
 }
 
 .room {
     cursor: pointer;
-    position: relative;
-    display: inline-block;
-}
-
-.room p {
-    color: white;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    padding: 5px;
-    text-align: center;
-    justify-content: center;
-    display: flex;
-}
-
-.room span {
-    font-size: 15px;
-    padding-inline: 5px;
-    margin-left: 5px;
-    align-items: center;
-    display: flex;
 }

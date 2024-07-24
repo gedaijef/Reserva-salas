@@ -8,6 +8,7 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="media-query/mq-index.css">
     <script src="js/script.js" defer></script>
 </head>
 
@@ -15,24 +16,21 @@
     <div id="imgCima"><img src="img/grafismo-J&F 1.webp" alt="fundo"></div>
 
     <main>
+        <h1 id="titleSpot">Reservar um spot</h1>
         <section>
-            <h1 id="titleSpot">Reservar um spot</h1>
-            <article>
 
-                <div class="room">
-                    <img src="img/img_sala_reuniao.webp" alt="Imagem de uma sala de reunião">
-                    <p>Sala de reunião <span class="material-symbols-outlined">
-                            arrow_forward</span></p>
-                </div>
+            <picture class="room">
+                <source media="(max-width: 600px)" srcset="img/Bloco-reunião-600px.webp" type="image/webp">
 
-                <div class="room">
-                    <img src="img/img_sala_aula.webp" alt="Imagem de uma sala de aula">
-                    <p>Sala de aula <span class="material-symbols-outlined">
-                            arrow_forward</span></p>
-                </div>
+                <img src="img/img_sala_reuniao.webp" alt="Imagem de uma sala de reunião">
+            </picture>
 
+            <picture class="room">
+                <source media="(max-width: 600px)" srcset="img/Bloco-sala-600px.webp" type="image/webp">
 
-            </article>
+                <img src="img/img_sala_aula.webp" alt="Imagem de uma sala de aula">
+            </picture>
+
         </section>
     </main>
 

@@ -23,13 +23,13 @@
             <article id="container-informacoes">
 
                 <div id="informacoes-1">
-                    <div class="wave-group">
-                        <input required="" type="text" class="input" id="nomeReserva">
-                        <span class="bar"></span>
-                        <label class="label">
-                            <span class="label-char" style="--index: 0">Nome da reserva</span>
-                        </label>
-                    </div>
+
+                    <input placeholder="Digite o nome da reserva" class="input-style input" id="nomeReserva"
+                        type="text">
+                    <span class="bar"></span>
+
+
+
                     <p>Horário de início: <span id="horInicio"></span></p>
                     <p>Horário de fim: <span id="horFim"></span></p>
                     <p>Quantidade de cadeiras: <span id="quantCadeiras"></span></p>
@@ -48,7 +48,7 @@
             <button id="confirmar">Confirmar</button>
         </div>
     </section>
-    <header id="header-pgn" >
+    <header id="header-pgn">
         <div>
             <img src="../img/Logo-J_F.webp" alt="Logo institutojef" id="logo-instituto">
             <h1>GEDAI</h1>
@@ -99,7 +99,7 @@
                                     <input type="time" name="timeFinal" id="timeFinal">
                                 </div>
                                 <div id="label-cadeiras">
-                                    
+
                                 </div>
                             </article>
                             <article id="datas">
@@ -110,6 +110,15 @@
                                 <div id="recorrencia-selecionada">
                                     <p>Data de término: <input type="date" name="data" id="dataTermino"></p>
                                 </div>
+                                <!-- <div>
+                                    <input type="radio" id="diariamente" name="reco" value="diariamente" checked />
+                                    <label for="diariamente">Diariamente</label>
+                                </div>
+
+                                <div>
+                                    <input type="radio" id="semanalmente" name="reco" value="semanalmente" />
+                                    <label for="semanalmente">Semanalmente</label> -->
+                                </div>
                             </article>
                         </section>
                         <section id="container-botoes">
@@ -119,7 +128,7 @@
                     </section>
                     <h3 id="alerta-sem-sala">Não há salas disponíveis :(</h3>
                     <section id="container-salas">
-                       
+
                     </section>
                 </aside>
             </section>

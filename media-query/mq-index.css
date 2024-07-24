@@ -1,0 +1,31 @@
+@media screen and (max-width: 600px) {
+
+    #imgCima>img,
+    #imgBaixo>img {
+        opacity: .6;
+        width: 12rem;
+    }
+
+    main {
+        z-index: 2;
+        position: relative;
+    }
+
+    #titleSpot {
+        font-size: 1.5rem;
+    }
+
+    section {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .room>img {
+        width: 9rem;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 768px) {
+    
+}
