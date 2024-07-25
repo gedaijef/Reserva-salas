@@ -121,6 +121,7 @@ a {
     width: 35%;
     border-radius: 10px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    background-color: #eeeeee;
 }
 
 .wrapper #headerCalendario {
@@ -308,6 +309,7 @@ a {
 
 #filtros {
     padding: 1rem;
+    background-color: #eeeeee;
     display: grid;
     font-size: .9rem;
     justify-content: center;

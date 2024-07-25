@@ -109,7 +109,7 @@
     #form_horario_termino>input,
     #recorrencia-selecionada>p>input,
     select {
-        width: fit-content;
+        width: min-content;
         margin-left: 0;
         margin-top: .3rem;
     }
@@ -131,6 +131,7 @@
         align-items: center;
         gap: .5rem;
         padding-inline: .5rem;
+        width: 100%;
     }
 
     #container-info-sala {
@@ -147,11 +148,143 @@
         padding-inline: .3rem;
     }
 
-    #span-tv  {
+    #span-tv {
+        padding: 0;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 768px) {
+
+    #header-pgn {
+        justify-content: space-between;
+        display: flex;
+    }
+
+    #header-pgn h1 {
+        font-size: 1.5rem;
+    }
+
+    #header-pgn>div {
+        order: 2;
+    }
+
+    #voltar {
+        margin-block: 1rem;
+        font-size: 1rem;
+    }
+
+    .material-symbols-outlined {
+        font-size: 1.2rem;
+    }
+
+    main {
+        height: auto;
         padding: 0;
     }
 
-    #imgBaixo {
+    #barra-lateral {
         display: none;
+    }
+
+    .wrapper {
+        width: auto;
+    }
+
+    .wrapper #headerCalendario {
+        padding: 1rem;
+    }
+
+    #headerCalendario .current-date {
+        font-size: 1.1rem;
+    }
+
+    .calendar {
+        padding: 0 1rem 1rem 1rem;
+    }
+
+    .calendar .weeks li {
+        font-size: .9rem;
+    }
+
+    .calendar .days li {
+        font-size: .9rem;
+    }
+
+    #conteudo {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    #container {
+        width: 70%;
+    }
+
+    #container-filtros {
+        width: auto;
+        gap: .6rem;
+    }
+
+    #headerFiltros {
+        font-size: 1rem;
+    }
+
+    #filtros {
+        grid-template-columns: 45% 45%;
+        gap: 1rem;
+        padding-inline: 0;
+    }
+
+    #horario-cadeiras {
+        margin-right: 0;
+        padding-right: 0;
+    }
+
+    #horario-cadeiras,
+    #datas {
+        display: grid;
+        gap: 1rem;
+        grid-template-rows: repeat(3, 22%);
+        align-items: center;
+    }
+
+    #form_horario_inicio,
+    #form_horario_termino {
+        padding: 0;
+    }
+
+    #container-checkbox {
+        margin: 0;
+    }
+
+    #container-checkbox>p {
+        align-self: normal;
+    }
+
+    #recorrencia-selecionada {
+        margin: 0;
+        margin-left: .5rem;
+    }
+
+    .sala {
+        align-items: center;
+        gap: .7rem;
+        padding-inline: .5rem;
+        width: 100%;
+    }
+
+    #container-info-sala {
+        display: grid;
+        grid-template-columns: repeat(3, 30%);
+        width: 100%;
+    }
+
+    #container-info-sala p {
+        justify-self: center;
+        font-size: .8rem;
+    }
+
+    #span-tv {
+        padding: 0;
+        border: none;
     }
 }
