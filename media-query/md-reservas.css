@@ -1,0 +1,157 @@
+@media screen and (max-width: 600px) {
+    #header-pgn {
+        display: flex;
+        justify-content: center;
+    }
+
+    #header-pgn h1 {
+        font-size: 1.5rem;
+    }
+
+    #header-pgn>div {
+        display: none;
+    }
+
+    #voltar {
+        margin-block: 1rem;
+        font-size: .9rem;
+    }
+
+    .material-symbols-outlined {
+        font-size: 1rem;
+    }
+
+    main {
+        height: auto;
+        padding: 0;
+    }
+
+    #barra-lateral {
+        display: none;
+    }
+
+    .wrapper {
+        width: auto;
+    }
+
+    .wrapper #headerCalendario {
+        padding: .9rem;
+    }
+
+    #headerCalendario .current-date {
+        font-size: 1rem;
+    }
+
+    .calendar {
+        padding: 0 .9rem .9rem .9rem;
+    }
+
+    .calendar .weeks li {
+        font-size: .8rem;
+    }
+
+    .calendar .days li {
+        font-size: .8rem;
+    }
+
+    #conteudo {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    #container {
+        width: 85%;
+    }
+
+    #container-filtros {
+        width: auto;
+    }
+
+    #headerFiltros {
+        padding-left: 0;
+        text-align: center;
+        font-size: .9rem;
+    }
+
+    #filtros {
+        grid-template-columns: 45% 45%;
+        gap: 1rem;
+        padding-inline: 0;
+    }
+
+    #horario-cadeiras {
+        margin-right: 0;
+        padding-right: 0;
+    }
+
+    #horario-cadeiras,
+    #datas {
+        display: grid;
+        gap: 1rem;
+        grid-template-rows: repeat(3, 25%);
+        align-items: center;
+    }
+
+    #form_horario_inicio,
+    #form_horario_termino {
+        padding: 0;
+    }
+
+    #form_horario_inicio,
+    #form_horario_termino,
+    #label-cadeiras {
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    #form_horario_inicio>input,
+    #form_horario_termino>input,
+    #recorrencia-selecionada>p>input,
+    select {
+        width: fit-content;
+        margin-left: 0;
+        margin-top: .3rem;
+    }
+
+    #container-checkbox {
+        margin: 0;
+    }
+
+    #container-checkbox>p {
+        align-self: normal;
+    }
+
+    #recorrencia-selecionada {
+        margin: 0;
+        margin-left: .5rem;
+    }
+
+    .sala {
+        align-items: center;
+        gap: .5rem;
+        padding-inline: .5rem;
+    }
+
+    #container-info-sala {
+        display: grid;
+        grid-template-columns: repeat(3, 32%);
+        gap: .5rem;
+        align-items: center;
+        text-align: center;
+        font-size: .8rem;
+        justify-content: center;
+    }
+
+    #container-info-sala p {
+        padding-inline: .3rem;
+    }
+
+    #span-tv  {
+        padding: 0;
+    }
+
+    #imgBaixo {
+        display: none;
+    }
+}

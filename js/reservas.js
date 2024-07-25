@@ -6,14 +6,14 @@ const labelCadeiras = document.getElementById('label-cadeiras');
 if (caminho == "../img/barra-lateral-reuniao_img.webp") {
     tipoSala = 'Sala de Reunião'
     labelCadeiras.innerHTML = `
-                                    <label for="iest">Quantidade de cadeiras:</label>
+                                    <label for="iest">Número de cadeiras:</label>
                                     <select name="est" id="iest">
                                         <option value="1-5">1 - 5</option>
                                         <option value="6-8">6 - 8</option>
                                     </select>`
 } else {
     tipoSala = 'Sala de Aula'
-    labelCadeiras.innerHTML = '<p>Quantidade de cadeiras: <span id="iest">25</span></p>'
+    labelCadeiras.innerHTML = '<p>Número de cadeiras: <span id="iest">25</span></p>'
 }
 
 let dataSelecionada = ""
