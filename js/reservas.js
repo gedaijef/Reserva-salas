@@ -368,6 +368,11 @@ function informacoesFetch(numero, cadeiras, tv, andar) {
                                     </span><span id="andar">${andar}º andar</span></p>
                             </section>
                         </div>`
+    if (window.innerWidth <= 1200) {
+        setTimeout(() => {
+            containerSalas.scrollIntoView({ behavior: 'smooth' });
+        }, 300)
+    }
 
 }
 

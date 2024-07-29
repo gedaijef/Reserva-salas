@@ -16,11 +16,17 @@
     box-sizing: border-box;
     font-family: "Inter", sans-serif;
 }
-
+#azul {
+    background-color: aqua;
+    height: 1000px;
+}
 body {
     height: 100vh;
+    display: grid;
+    grid-template-rows: 12% 88%;
     background-color: var(--bg);
     user-select: none;
+    scroll-behavior: smooth;
 }
 
 #container-salas::-webkit-scrollbar {
@@ -40,8 +46,12 @@ body {
     background: #555;
 }
 
+#barra-lateral {
+    height: 100%;
+}
+
 #barra-lateral>img {
-    height: 100vh;
+    height: 100%;
     float: left;
 }
 
@@ -82,7 +92,7 @@ body {
 }
 
 main {
-    height: 100vh;
+    height: 100%;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -92,7 +102,6 @@ main {
 
 #container {
     width: 100%;
-    height: 100%;
 }
 
 #linkVoltar {
@@ -105,6 +114,10 @@ a {
     text-decoration: none;
     align-items: center;
     display: flex;
+}
+
+#voltar {
+    margin-bottom: 1rem;
 }
 
 #conteudo {
@@ -286,11 +299,10 @@ a {
 #container-filtros {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
     border-radius: 10px;
-    height: max-content;
-    width: 36rem;
+    height: 100%;
     display: flex;
-    margin-bottom: 1rem;
     flex-direction: column;
+    background-color: var(--bg);
 }
 
 

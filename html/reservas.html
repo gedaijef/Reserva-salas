@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <section id="container-popup">
+    <!-- <section id="container-popup">
         <div id="popup">
             <header id="header-popup">
                 <h1>Informações da reserva</h1>
@@ -48,7 +48,7 @@
             </article>
             <button id="confirmar">Confirmar</button>
         </div>
-    </section>
+    </section> -->
     <header id="header-pgn">
         <div>
             <img src="../img/Logo-J_F.webp" alt="Logo institutojef" id="logo-instituto">
@@ -85,59 +85,57 @@
                         <ul class="days"></ul>
                     </div>
                 </div>
-                <aside class="container">
-                    <section id="container-filtros">
-                        <header id="headerFiltros">
-                            <h2>Personalize sua sala</h2>
-                        </header>
-                        <section id="filtros">
-                            <article id="horario-cadeiras">
-                                <div id="form_horario_inicio">
-                                    <label for="timeInicio">Início:</label>
-                                    <input type="time" name="timeInicio" id="timeInicio">
-                                </div>
-                                <div id="form_horario_termino">
-                                    <label for="timeFinal">Término:</label>
-                                    <input type="time" name="timeFinal" id="timeFinal">
-                                </div>
-                                <div id="label-cadeiras">
+                <section id="container-filtros">
+                    <header id="headerFiltros">
+                        <h2>Personalize sua sala</h2>
+                    </header>
+                    <section id="filtros">
+                        <article id="horario-cadeiras">
+                            <div id="form_horario_inicio">
+                                <label for="timeInicio">Início:</label>
+                                <input type="time" name="timeInicio" id="timeInicio">
+                            </div>
+                            <div id="form_horario_termino">
+                                <label for="timeFinal">Término:</label>
+                                <input type="time" name="timeFinal" id="timeFinal">
+                            </div>
+                            <div id="label-cadeiras">
 
-                                </div>
-                            </article>
-                            <article id="datas">
-                                <p>Data selecionada: <span class="diaSelecionado" id="dia"></span></p>
-                                <div id="container-checkbox"><input type="checkbox" class="ui-checkbox" id="checkbox">
-                                    <p>Definir recorrência</p>
-                                </div>
-                                <div id="recorrencia-selecionada">
-                                    <p>Data de término: <input type="date" name="data" id="dataTermino"></p>
-                                </div>
-                                <!-- <div>
-                                    <input type="radio" id="diariamente" name="reco" value="diariamente" checked />
-                                    <label for="diariamente">Diariamente</label>
-                                </div>
+                            </div>
+                        </article>
+                        <article id="datas">
+                            <p>Data selecionada: <span class="diaSelecionado" id="dia"></span></p>
+                            <div id="container-checkbox"><input type="checkbox" class="ui-checkbox" id="checkbox">
+                                <p>Definir recorrência</p>
+                            </div>
+                            <div id="recorrencia-selecionada">
+                                <p>Data de término: <input type="date" name="data" id="dataTermino"></p>
+                            </div>
+                            <!-- <div>
+                                <input type="radio" id="diariamente" name="reco" value="diariamente" checked />
+                                <label for="diariamente">Diariamente</label>
+                            </div>
 
-                                <div>
-                                    <input type="radio" id="semanalmente" name="reco" value="semanalmente" />
-                                    <label for="semanalmente">Semanalmente</label> -->
-                                </div>
-                            </article>
-                        </section>
-                        <section id="container-botoes">
-                            <button id="btn-limpar">Limpar</button>
-                            <button id="btn-confirmar">Confirmar</button>
-                        </section>
+                            <div>
+                                <input type="radio" id="semanalmente" name="reco" value="semanalmente" />
+                                <label for="semanalmente">Semanalmente</label> -->
+                            </div>
+                        </article>
                     </section>
-                    <h3 id="alerta-sem-sala">Não há salas disponíveis :(</h3>
-                    <section id="container-salas">
-                        
+                    <section id="container-botoes">
+                        <button id="btn-limpar">Limpar</button>
+                        <button id="btn-confirmar"><a href="#container-salas">Confirmar</a></button>
                     </section>
-                </aside>
+
+                </section>
+                <h3 id="alerta-sem-sala">Não há salas disponíveis :(</h3>
+                <section id="container-salas">
+
+                </section>
             </section>
         </section>
     </main>
     <div id="imgBaixo"><img src="../img/grafismo-J&F 2.webp" alt="fundo"></div>
-
 
 </body>
 
