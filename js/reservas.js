@@ -21,6 +21,7 @@ let activeClass = ""
 let data = ""
 const checkbox = document.getElementById('checkbox');
 const recorrenciaSelecionada = document.getElementById('recorrencia-selecionada');
+const body = document.getElementsByTagName('body')[0];
 const dataTermino = document.getElementById('dataTermino');
 const btnLimpar = document.getElementById('btn-limpar');
 const btnConfirmar = document.getElementById('btn-confirmar');
@@ -400,6 +401,7 @@ function ativarPopup(event) {
 
     popup.style.display = 'flex';
     containerPopup.style.display = 'flex';
+    body.style.overflow = 'hidden';
     informacoesPopup(numero, cadeiras, tv, andar);
 }
 
@@ -485,6 +487,7 @@ containerPopup.addEventListener('click', (event) => {
         if (popup.style.display == 'flex') {
             popup.style.display = 'none'
             containerPopup.style.display = 'none'
+            body.style.overflow = 'auto';
         }
     }
 })
@@ -499,10 +502,9 @@ confirmarReserva.addEventListener('click', () => {
         informacoesReserva[0].nome_reserva = nomeReserva
         popup.style.display = 'none'
         containerPopup.style.display = 'none'
+        body.style.overflow = 'auto';
         insercao(informacoesReserva)
     }
-
-
 
 })
 
