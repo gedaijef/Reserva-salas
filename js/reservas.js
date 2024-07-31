@@ -1,6 +1,6 @@
 const barra = document.getElementById('barra-lateral');
 const caminho = sessionStorage.getItem("img");
-barra.innerHTML = `<img src="${caminho}" alt="Imagem da barra lateral">`;
+// barra.innerHTML = `<img src="${caminho}" alt="Imagem da barra lateral">`;
 let tipoSala = ''
 const labelCadeiras = document.getElementById('label-cadeiras');
 if (caminho == "../img/barra-lateral-reuniao_img.webp") {

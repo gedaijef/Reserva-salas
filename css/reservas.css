@@ -17,13 +17,19 @@
     font-family: "Inter", sans-serif;
 }
 
+
+html,
 body {
     height: 100%;
-    display: grid;
-    grid-template-rows: 12% 88%;
+}
+
+
+body {
     background-color: var(--bg);
     user-select: none;
     scroll-behavior: smooth;
+    display: flex;
+    flex-direction: column;
 }
 
 #container-salas::-webkit-scrollbar {
@@ -43,40 +49,22 @@ body {
     background: #555;
 }
 
-#barra-lateral {
-    height: 100%;
-}
-
-#barra-lateral>img {
-    height: 100%;
-    float: left;
-}
-
 #header-pgn {
-    padding: 10px 20px;
-    align-items: center;
-    width: 100%;
-    user-select: none;
+    height: fit-content;
+    padding-inline: 1rem;
+    padding-block: .8rem;
     background-color: var(--azul100);
     color: white;
-    grid-template-columns: 42% 1fr;
-    display: grid;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     transition: background-color 0.3s, backdrop-filter 0.3s;
-}
-
-.logo>a {
-    text-decoration: none;
-    color: #fff;
 }
 
 #header-pgn>div {
     display: flex;
     align-items: center;
     font-size: .8rem;
-}
-
-#header-pgn h1 {
-    font-size: 1.7rem;
 }
 
 #logo-instituto {
@@ -88,39 +76,39 @@ body {
     border-radius: 2.4px;
 }
 
-main {
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    position: relative;
-    z-index: 2;
-}
-
-#container {
-    width: 100%;
-}
-
-#linkVoltar {
-    margin-left: 3rem;
-    margin-bottom: 1.5rem;
-}
-
-a {
-    color: var(--font);
-    text-decoration: none;
-    align-items: center;
-    display: flex;
+#header-pgn h1 {
+    font-size: 1.7rem;
 }
 
 #voltar {
-    margin-bottom: 1rem;
+    color: white;
 }
 
-#conteudo {
+a {
+    color: white;
+    text-decoration: none;
+    align-items: center;
     display: flex;
-    justify-content: space-evenly;
+    gap: .2rem;
 }
+
+main {
+    background: var(--bg) url(../img/barra-lateral-aula_img.webp) no-repeat left;
+    background-size: contain;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    position: relative;
+    padding-top: 1rem;
+    justify-content: space-evenly;
+    z-index: 2;
+}
+
+#barra-lateral,
+#barra-lateral>img {
+    height: 100%;
+}
+
 
 
 
@@ -128,10 +116,11 @@ a {
 /* calendário */
 
 .wrapper {
-    width: 35%;
+    width: 40%;
+    height: fit-content;
     border-radius: 10px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-    background-color: #eeeeee;
+    background-color: var(--bg);
 }
 
 .wrapper #headerCalendario {
@@ -227,81 +216,24 @@ a {
     background: var(--azul100);
 }
 
-.hidden {
-    display: none;
-}
-
-.container {
-    display: grid;
-    grid-template-rows: auto 1fr;
-}
-
-#alerta-sem-sala {
-    justify-self: center;
-    align-self: center;
-    color: #383838;
-    font-weight: 500;
-    display: none;
-}
-
-#container-salas {
-    height: 15rem;
-    overflow-y: scroll;
-    display: none;
-}
-
-.sala {
-    background-color: var(--azul20);
-    margin-bottom: 0.8rem;
-    padding-block: 0.5rem;
-    padding-inline: 1rem;
-    border-radius: 10px;
-    cursor: pointer;
-    color: var(--font);
+/*Container de filtros e salas*/
+#container-filtro-sala {
+    width: 40%;
     display: flex;
     flex-direction: column;
 }
-
-.sala>h2 {
-    align-self: center;
-    color: var(--font);
-    font-size: 1.2rem;
-}
-
-#container-info-sala {
-    display: flex;
-    justify-content: space-around;
-}
-
-#container-info-sala p {
-    display: flex;
-    align-items: center;
-}
-
-#span-tv {
-    padding-inline: 2.5rem;
-    border-inline: 1px solid var(--font);
-}
-
-#cadeiras {
-    padding-right: .2rem;
-}
-
-.material-symbols-outlined {
-    padding-right: .5rem;
-}
-
 
 /* filtros */
+
 #container-filtros {
+    background-color: var(--bg);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
     border-radius: 10px;
-    height: 100%;
+    margin-bottom: 1rem;
+    height: fit-content;
     display: flex;
     flex-direction: column;
-    background-color: var(--bg);
 }
-
 
 #headerFiltros {
     background-color: var(--azul70);
@@ -331,30 +263,7 @@ a {
     padding-right: 1rem;
 }
 
-#container-botoes {
-    justify-content: space-around;
-    display: flex;
-    margin-bottom: .5rem;
-}
-
-#container-botoes button {
-    border-radius: 5px;
-    outline: none;
-    border: none;
-    background-color: var(--azul20);
-    padding-inline: .4rem;
-    padding-block: .2rem;
-    cursor: pointer;
-    transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-}
-
-#container-botoes button:hover {
-    background-color: var(--azul70);
-    color: white;
-}
-
-
-/*Estilizando caixas de input de horário e de opções*/
+/*Estilizando caixas de input de horário e de opções dos filtros*/
 #form_horario_inicio,
 #form_horario_termino {
     padding-block: .5rem;
@@ -473,6 +382,92 @@ select {
     margin: .5rem;
 }
 
+/* Botões dos filtros  */
+#container-botoes {
+    justify-content: space-around;
+    display: flex;
+    margin-bottom: .5rem;
+}
+
+#container-botoes button {
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    background-color: var(--azul20);
+    padding-inline: .4rem;
+    padding-block: .2rem;
+    cursor: pointer;
+    transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+#btn-confirmar>a {
+    color: var(--font);
+}
+
+#container-botoes button:hover {
+    background-color: var(--azul70);
+    color: white;
+}
+
+/* Filtros desativados */
+.desativado {
+    cursor: not-allowed;
+    color: gray;
+    border-color: gray;
+}
+
+/* Salas  */
+#container-salas {
+    height: 15rem;
+    overflow-y: scroll;
+    display: none;
+}
+
+.sala {
+    background-color: var(--azul20);
+    margin-bottom: 0.8rem;
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    color: var(--font);
+    display: flex;
+    flex-direction: column;
+}
+
+.sala>h2 {
+    align-self: center;
+    color: var(--font);
+    font-size: 1.2rem;
+}
+
+#container-info-sala {
+    display: flex;
+    justify-content: space-around;
+}
+
+#container-info-sala p {
+    display: flex;
+    align-items: center;
+}
+
+#span-tv {
+    padding-inline: 2.5rem;
+    border-inline: 1px solid var(--font);
+}
+
+#cadeiras {
+    padding-right: .2rem;
+}
+
+#alerta-sem-sala {
+    justify-self: center;
+    align-self: center;
+    color: #383838;
+    font-weight: 500;
+    display: none;
+}
+
 /*Estilizando popup para receber últimos dados*/
 #container-popup {
     height: 100rem;
@@ -531,11 +526,27 @@ select {
     justify-self: center;
 }
 
-
-
 div#informacoes-1>p,
 div#informacoes-2>p {
     padding-block: .3rem;
+}
+
+
+/*Estilizando nome da reserva*/
+.input-style {
+    width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: .8rem;
+    color: #333;
+    outline: none;
+    padding-block: .3rem;
+    text-align: center;
+}
+
+.input-style:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 #confirmar {
@@ -555,41 +566,4 @@ div#informacoes-2>p {
 #confirmar:hover {
     background-color: var(--azul70);
     color: white;
-}
-
-/*Estilizando nome da reserva*/
-.input-style {
-    width: 100%;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    font-size: .8rem;
-    color: #333;
-    outline: none;
-    padding-block: .3rem;
-    text-align: center;
-}
-
-.input-style:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-
-#imgBaixo {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    display: flex;
-}
-
-#imgBaixo>img {
-    margin-bottom: 15px;
-    margin-right: 15px;
-    width: 19rem;
-}
-
-.desativado {
-    cursor: not-allowed;
-    color: gray;
-    border-color: gray;
 }
