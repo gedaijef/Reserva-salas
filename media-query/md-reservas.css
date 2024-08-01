@@ -1,8 +1,4 @@
 @media screen and (max-width: 600px) {
-    #header-pgn {
-        display: flex;
-        justify-content: space-between;
-    }
 
     #header-pgn h1 {
         font-size: 1.5em;
@@ -178,10 +174,6 @@
 }
 
 @media screen and (min-width: 600px) and (max-width: 768px) {
-    #header-pgn {
-        justify-content: space-between;
-        display: flex;
-    }
 
     #header-pgn h1 {
         font-size: 1.5rem;
@@ -332,11 +324,6 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
-    #header-pgn {
-        justify-content: space-between;
-        display: flex;
-    }
-
     #header-pgn h1 {
         font-size: 1.5rem;
     }
@@ -356,7 +343,7 @@
             "calendario filtro"
             "salas salas";
         grid-template-columns: 47% 47%;
-        grid-template-rows: 55% 45%;
+        grid-template-rows: 50% 45%;
         row-gap: 1rem;
     }
 
@@ -388,7 +375,11 @@
     }
 
     #filtros {
-        display: block;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr 1fr;
+        row-gap: .7rem;
+        height: 80%;
     }
 
     #container-botoes {
@@ -400,11 +391,13 @@
 
     #container-salas {
         grid-area: salas;
-        grid-row: 3;
+        grid-row: 2 / 3;
+        height: 20rem;
     }
 
     #horario-cadeiras {
         border: none;
+        margin-bottom: .4rem;
     }
 
     #datas {
@@ -414,73 +407,50 @@
     #horario-cadeiras,
     #datas {
         display: grid;
-        gap: .8rem;
+        gap: .6rem;
+        margin: 0;
+        padding: 0;
     }
 
     #container-checkbox,
     #recorrencia-selecionada {
-        margin: 0 0 0 .5rem
+        margin: 0;
     }
 
 }
 
 @media screen and (min-width: 992px) and (max-width: 1200px) {
-    #header-pgn {
-        justify-content: space-between;
-        display: flex;
-    }
-
     #header-pgn h1 {
         font-size: 1.5rem;
     }
 
-    #header-pgn>div {
-        order: 2;
-    }
-
-    main {
-        display: grid;
-        height: auto;
-        grid-template-columns: 10% 1fr;
-        align-items: normal;
-    }
-
-    #barra-lateral {
-        height: 100%;
-        width: 100%;
-    }
-
-    #barra-lateral>img {
-        width: 100%;
-        height: 100%;
-    }
-
     #voltar {
-        margin: 1.5rem;
         font-size: 1rem;
     }
 
-    .material-symbols-outlined {
-        font-size: 1.2rem;
-    }
-
-    #container {
+    main {
+        padding: 3rem;
         display: grid;
         grid-template-areas:
-            "calendario filtros"
+            "calendario filtro"
             "salas salas";
-        grid-template-columns: 45% 40%;
-        gap: 1.5rem;
+        grid-template-columns: 47% 47%;
+        grid-template-rows: 50% 45%;
+        row-gap: 1rem;
     }
 
     .wrapper {
-        grid-area: calendario;
         width: 100%;
+        height: 100%;
+        justify-content: center;
+        display: flex;
+        grid-area: calendario;
+        flex-direction: column;
     }
 
     .wrapper,
     #container-filtros {
-        grid-row: 1 / 3;
+        grid-row: 1 / 2;
     }
 
     .wrapper #headerCalendario {
@@ -503,15 +473,6 @@
         margin: 0;
     }
 
-    #container-filtros {
-        width: 100%;
-        height: 100%;
-    }
-
-    #filtros {
-        display: block;
-    }
-
     #container-botoes {
         display: flex;
         flex-direction: row;
@@ -521,25 +482,37 @@
 
     #container-salas {
         grid-area: salas;
-        grid-row: 3;
+        grid-row: 2 / 3;
+        height: 20rem;
     }
+}
 
-    #horario-cadeiras {
-        border: none;
-    }
-
-    #datas {
-        margin-top: 1rem;
-    }
-
-    #horario-cadeiras,
-    #datas {
+@media screen and (min-width: 1200px) {
+    main {
         display: grid;
-        gap: .8rem;
+        padding-inline: 2rem;
+        grid-template-areas:
+            "calendario filtros"
+            "calendario salas";
+        grid-template-columns: 45% 45%;
+        grid-template-rows: 25% 30%;
+        row-gap: 1rem;
     }
 
-    #container-checkbox,
-    #recorrencia-selecionada {
-        margin: 0 0 0 .5rem
+    .wrapper {
+        width: 80%;
+        justify-self: center;
+        grid-area: calendario;
+        height: 100%;
+        grid-row: 1 / 3;
+    }
+
+    #container-filtros {
+        margin: 0;
+        grid-area: filtros;
+    }
+
+    #container-salas {
+        grid-area: salas;
     }
 }

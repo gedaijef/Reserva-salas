@@ -224,7 +224,6 @@ main {
 }
 
 /* filtros */
-
 #container-filtros {
     background-color: var(--bg);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
@@ -263,12 +262,13 @@ main {
     padding-right: 1rem;
 }
 
-/*Estilizando caixas de input de horário e de opções dos filtros*/
-#form_horario_inicio,
-#form_horario_termino {
-    padding-block: .5rem;
+#horario-cadeiras, #datas {
+    display: grid;
+    grid-template-rows: repeat(3, 30%);
+    align-items: center;
 }
 
+/*Estilizando caixas de input de horário e de opções dos filtros*/
 input[type="date"],
 input[type="time"],
 select {
