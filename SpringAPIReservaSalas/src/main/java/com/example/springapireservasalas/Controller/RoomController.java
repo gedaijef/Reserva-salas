@@ -34,23 +34,29 @@ public class RoomController {
 
     @GetMapping("/filtrarSalas")
     public List<Room> filtrarSalasPorTipoDataHorarioCapacidade(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate selected_date,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime selected_start_time,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime selected_final_time,
-            @RequestParam Integer selected_min_capacity,
-            @RequestParam Integer selected_max_capacity,
-            @RequestParam boolean selected_recurring,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate final_date_recurring,
-            @RequestParam String selected_type) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime start_time,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime final_time,
+            @RequestParam Integer min_capacity,
+            @RequestParam Integer max_capacity,
+            @RequestParam boolean recurring,
+            @RequestParam boolean recurring_day,
+            @RequestParam boolean recurring_week,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate final_date_recurring,
+            @RequestParam(required = false) Integer number_of_weeks,
+            @RequestParam String type) {
 
         return roomService.filtrarSalasPorTipoDataHorarioCapacidade(
-                selected_date,
-                selected_start_time,
-                selected_final_time,
-                selected_min_capacity,
-                selected_max_capacity,
-                selected_recurring,
+                date,
+                start_time,
+                final_time,
+                min_capacity,
+                max_capacity,
+                recurring,
+                recurring_day,
+                recurring_week,
                 final_date_recurring,
-                selected_type);
+                number_of_weeks,
+                type);
     }
 }

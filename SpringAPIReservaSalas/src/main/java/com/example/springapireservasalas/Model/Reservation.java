@@ -37,31 +37,52 @@ public class Reservation {
     private LocalDate date;
 
     @Column(name = "recurring")
+    @NotNull(message = "Recurring cannot be null")
     private boolean recurring;
+
+    @Column(name = "recurring_day")
+    @NotNull(message = "Recurring day cannot be null")
+    private boolean recurring_day;
+
+    @Column(name = "recurring_week")
+    @NotNull(message = "Recurring week cannot be null")
+    private boolean recurring_week;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "final_date_recurring")
     private LocalDate final_date_recurring;
 
+    @Column(name = "number_of_weeks")
+    private Integer number_of_weeks;
+
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
 
-    @Column(name = "user_id")
-    private Long user;
+    public Reservation(
+            Long id,
+            LocalTime startTime,
+            LocalTime finalTime,
+            String title,
+            LocalDate date,
+            boolean recurring,
+            boolean recurring_day,
+            boolean recurring_week,
+            LocalDate final_date_recurring,
+            Integer number_of_weeks,
+            Room room) {
 
-    public Reservation(Long id, LocalTime startTime, LocalTime finalTime, String title, LocalDate date, boolean recurring, LocalDate final_date_recurring, Room room, Long user) {
         this.id = id;
         this.startTime = startTime;
         this.finalTime = finalTime;
         this.title = title;
         this.date = date;
         this.recurring = recurring;
+        this.recurring_day = recurring_day;
+        this.recurring_week = recurring_week;
         this.final_date_recurring = final_date_recurring;
+        this.number_of_weeks = number_of_weeks;
         this.room = room;
-        this.user = user;
     }
-
     public Reservation() {}
-
 }

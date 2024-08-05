@@ -24,23 +24,29 @@ public class RoomService {
     }
 
     public List<Room> filtrarSalasPorTipoDataHorarioCapacidade(
-            LocalDate selected_date,
-            LocalTime selected_start_time,
-            LocalTime selected_final_time,
-            Integer selected_min_capacity,
-            Integer selected_max_capacity,
-            boolean selected_recurring,
+            LocalDate date,
+            LocalTime start_time,
+            LocalTime final_time,
+            Integer min_capacity,
+            Integer max_capacity,
+            boolean recurring,
+            boolean recurring_day,
+            boolean recurring_week,
             LocalDate final_date_recurring,
-            String selected_type) {
+            Integer number_of_weeks,
+            String type) {
 
-        return roomRepository.findRoomsByTypeAndDateAndStartTimeAndFinalTimeAndCapacity(
-                selected_date,
-                selected_start_time,
-                selected_final_time,
-                selected_min_capacity,
-                selected_max_capacity,
-                selected_recurring,
+        return roomRepository.findRoomsByCapacityAndStartTimeFreeAndFinalTimeFreeAndType(
+                date,
+                start_time,
+                final_time,
+                min_capacity,
+                max_capacity,
+                recurring,
+                recurring_day,
+                recurring_week,
                 final_date_recurring,
-                selected_type);
+                number_of_weeks,
+                type);
     }
 }
