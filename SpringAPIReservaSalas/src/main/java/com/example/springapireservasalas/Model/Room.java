@@ -33,9 +33,6 @@ public class Room {
     @Column(name = "has_tv")
     private boolean hasTv;
 
-    @NotNull(message = "Type cannot be null")
-    private String type;
-
     @NotNull(message = "Horario Inicio Vago from cannot be null")
     @Column(name = "start_time_free")
     private LocalTime startTimeFree;
@@ -44,13 +41,17 @@ public class Room {
     @Column(name = "final_time_free")
     private LocalTime finalTimeFree;
 
-    public Room(Long id, String name, Integer floor, Integer capacity, boolean hasTv, String type, LocalTime startTimeFree, LocalTime finalTimeFree) {
+    @ManyToOne
+    @JoinColumn(name = "room_type_id")
+    private RoomType roomType;
+
+    public Room(Long id, String name, Integer floor, Integer capacity, boolean hasTv, RoomType roomType, LocalTime startTimeFree, LocalTime finalTimeFree) {
         this.id = id;
         this.name = name;
         this.floor = floor;
         this.capacity = capacity;
         this.hasTv = hasTv;
-        this.type = type;
+        this.roomType = roomType;
         this.startTimeFree = startTimeFree;
         this.finalTimeFree = finalTimeFree;
     }

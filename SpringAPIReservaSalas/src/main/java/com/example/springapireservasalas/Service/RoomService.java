@@ -1,11 +1,8 @@
 package com.example.springapireservasalas.Service;
-
 import com.example.springapireservasalas.Model.Room;
 import com.example.springapireservasalas.Repository.RoomRepository;
+import com.example.springapireservasalas.dto.FiltroDTO;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -15,30 +12,11 @@ public class RoomService {
         this.roomRepository = roomRepository;
     }
 
-    public List<Room> filtrarSalasPorTipoDataHorarioCapacidade(
-            LocalDate date,
-            LocalTime start_time,
-            LocalTime final_time,
-            Integer min_capacity,
-            Integer max_capacity,
-            boolean recurring,
-            boolean recurring_day,
-            boolean recurring_week,
-            LocalDate final_date_recurring,
-            Integer number_of_weeks,
-            String type) {
+    public List<Room> filtrarSalas(
+            FiltroDTO filtro) {
 
-        return roomRepository.findRoomsByCapacityAndStartTimeFreeAndFinalTimeFreeAndType(
-                date,
-                start_time,
-                final_time,
-                min_capacity,
-                max_capacity,
-                recurring,
-                recurring_day,
-                recurring_week,
-                final_date_recurring,
-                number_of_weeks,
-                type);
+        return roomRepository.findRoomsByCapacityAndStartTimeFreeAndFinalTimeFreeAndTypeAndHasTv(
+                filtro.getDate(),filtro.getStart_time(),filtro.getFinal_time(),filtro.getCapacity(),filtro.getType(), filtro.getHasTv()
+               );
     }
 }

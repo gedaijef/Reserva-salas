@@ -2,17 +2,27 @@ package com.example.springapireservasalas.Controller;
 
 import com.example.springapireservasalas.Model.Room;
 import com.example.springapireservasalas.Service.RoomService;
+import com.example.springapireservasalas.dto.FiltroDTO;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 @RestController
 @RequestMapping("/room")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class RoomController {
 
     @Autowired
@@ -22,31 +32,28 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-    @GetMapping("/filtrarSalas")
-    public List<Room> filtrarSalasPorTipoDataHorarioCapacidade(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime start_time,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime final_time,
-            @RequestParam Integer min_capacity,
-            @RequestParam Integer max_capacity,
-            @RequestParam boolean recurring,
-            @RequestParam boolean recurring_day,
-            @RequestParam boolean recurring_week,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate final_date_recurring,
-            @RequestParam(required = false) Integer number_of_weeks,
-            @RequestParam String type) {
+    //receber a capacidade
+    @GetMapping()
+    public Object filtrarSalasPorTipoDataHorarioCapacidade(
+            @Valid @RequestBody FiltroDTO filtro,
+            BindingResult result) {
 
-        return roomService.filtrarSalasPorTipoDataHorarioCapacidade(
-                date,
-                start_time,
-                final_time,
-                min_capacity,
-                max_capacity,
-                recurring,
-                recurring_day,
-                recurring_week,
-                final_date_recurring,
-                number_of_weeks,
-                type);
+        if(result.hasErrors()){
+            List<String> errors = result.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList();
+            return ResponseEntity.badRequest().body("Erro na validação de dados: "+errors);
+        }
+
+        return roomService.filtrarSalas(filtro);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException manve) {
+        Map<String, String> errors = new HashMap<>();
+        for (FieldError error : manve.getBindingResult().getFieldErrors()) {
+            errors.put(error.getField(), error.getDefaultMessage());
+        }
+        return errors;
     }
 }
