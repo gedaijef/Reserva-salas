@@ -22,16 +22,6 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-    @GetMapping("/selecionarTodos")
-    public List<Room> getAllRooms() {
-        return roomService.selecionarTodos();
-    }
-
-    @PostMapping("/adicionar")
-    public Room createRoom(@RequestBody Room room) {
-        return roomService.adicionarReserva(room);
-    }
-
     @GetMapping("/filtrarSalas")
     public List<Room> filtrarSalasPorTipoDataHorarioCapacidade(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,

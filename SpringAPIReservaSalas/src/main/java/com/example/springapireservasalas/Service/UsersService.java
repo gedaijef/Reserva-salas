@@ -11,15 +11,4 @@ import java.util.List;
 public class UsersService {
     @Autowired
     private UsersRepository usersRepository;
-
-    public List<Users> selecionarTodos() {
-        return usersRepository.findAll();
-    }
-
-    public Users adicionarReserva(Users user) {
-        if (user == null) {
-            throw new IllegalArgumentException("User cannot be null");
-        }
-        return usersRepository.save(user);
-    }
 }

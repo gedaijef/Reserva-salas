@@ -15,14 +15,6 @@ public class RoomService {
         this.roomRepository = roomRepository;
     }
 
-    public List<Room> selecionarTodos(){
-        return roomRepository.findAll();
-    }
-
-    public Room adicionarReserva(Room room) {
-        return roomRepository.save(room);
-    }
-
     public List<Room> filtrarSalasPorTipoDataHorarioCapacidade(
             LocalDate date,
             LocalTime start_time,

@@ -15,13 +15,4 @@ public class UsersController {
     @Autowired
     private UsersService userService;
 
-    @GetMapping("/selecionarTodos")
-    public List<Users> getAllReservations() {
-        return userService.selecionarTodos();
-    }
-    @PostMapping("/adicionar")
-    public ResponseEntity<Users> createUser(@RequestBody Users user) {
-        Users userAdd = userService.adicionarReserva(user);
-        return ResponseEntity.ok(userAdd);
-    }
 }
