@@ -29,7 +29,7 @@ public class RoomController {
     }
 
     //receber a capacidade
-    @GetMapping()
+    @PostMapping()
     public Object filtrarSalasPorTipoDataHorarioCapacidade(
             @Valid @RequestBody FiltroDTO filtro,
             BindingResult result) {
