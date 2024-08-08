@@ -15,25 +15,45 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     Optional<Room> findByName(String name);
 
     // Filtrar por has_tv e pela capacidade, trazer salas maior & igual a capacidade recebida
-    @Query(value = "SELECT r.id, r.name, r.floor, r.capacity, r.has_tv, r.type, r.start_time_free, r.final_time_free, r.room_type_id " +
-            "FROM Room r " +
-            "JOIN room_type rt ON r.room_type_id = rt.id " +
-            "WHERE r.capacity >= :filter_capacity " +
-            "AND r.type = :filter_type " +
-            "AND r.has_tv = :filter_has_tv " +
+    @Query(value = "WITH params AS (" +
+            "    SELECT" +
+            "        CAST(:selected_date AS DATE) AS selected_date," +
+            "        CAST(:selected_start_time AS TIME) AS start_time," +
+            "        CAST(:selected_final_time AS TIME) AS final_time," +
+            "        :selected_capacity AS capacity," +
+            "        :selected_has_tv AS has_tv" +
+            ") " +
+            "SELECT" +
+            "    room.id," +
+            "    room.name," +
+            "    room.capacity," +
+            "    room.floor," +
+            "    room.has_tv," +
+            "    room.start_time_free," +
+            "    room.final_time_free, " +
+            "    room.type " +
+            "FROM" +
+            "    Room room " +
+            "CROSS JOIN" +
+            "    params " +
+            "WHERE" +
+            "    room.type = :selected_type " +
+            "AND room.capacity >= params.capacity " +
+            "AND params.start_time >= room.start_time_free " +
+            "AND params.final_time <= room.final_time_free " +
+            "AND room.has_tv = params.has_tv " +
             "AND NOT EXISTS (" +
             "    SELECT 1 " +
-            "    FROM Reservation res " +
-            "    WHERE res.room_id = r.id " +
-            "    AND res.date = :filter_date " +
-            "    AND (res.start_time < :filter_final_time AND res.final_time > :filter_start_time)" +
+            "    FROM Reservation reservation " +
+            "    WHERE reservation.room_id = room.id " +
+            "    AND reservation.date = params.selected_date " +
+            "    AND (params.start_time, params.final_time) OVERLAPS (reservation.start_time, reservation.final_time)" +
             ")", nativeQuery = true)
     List<Room> findRoomsByCapacityAndStartTimeFreeAndFinalTimeFreeAndTypeAndHasTv(
-            @Param("filter_date") LocalDate selected_date,
-            @Param("filter_start_time") LocalTime selected_start_time,
-            @Param("filter_final_time") LocalTime selected_final_time,
-            @Param("filter_capacity") Integer selected_capacity,
-            @Param("filter_type") Integer selected_type,
-            @Param("filter_has_tv") Boolean selected_has_tv);
-
+            @Param("selected_date") LocalDate selected_date,
+            @Param("selected_start_time") LocalTime selected_start_time,
+            @Param("selected_final_time") LocalTime selected_final_time,
+            @Param("selected_capacity") Integer selected_capacity,
+            @Param("selected_type") Integer selected_type,
+            @Param("selected_has_tv") Boolean selected_has_tv);
 }
