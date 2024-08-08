@@ -27,8 +27,6 @@ public class RoomController {
     public RoomController(RoomService roomService) {
         this.roomService = roomService;
     }
-
-    //receber a capacidade
     @PostMapping()
     public Object filtrarSalasPorTipoDataHorarioCapacidade(
             @Valid @RequestBody FiltroDTO filtro,

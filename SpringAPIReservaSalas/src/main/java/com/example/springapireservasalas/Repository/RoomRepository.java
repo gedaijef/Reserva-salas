@@ -12,9 +12,6 @@ import java.util.Optional;
 
 public interface RoomRepository extends JpaRepository<Room, Long> {
 
-    Optional<Room> findByName(String name);
-
-    // Filtrar por has_tv e pela capacidade, trazer salas maior & igual a capacidade recebida
     @Query(value = "WITH params AS (" +
             "    SELECT" +
             "        CAST(:selected_date AS DATE) AS selected_date," +

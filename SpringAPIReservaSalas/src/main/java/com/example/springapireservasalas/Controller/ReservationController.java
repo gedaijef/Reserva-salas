@@ -18,12 +18,6 @@ public class ReservationController {
     @Autowired
     private ReservationService reservationService;
 
-    @GetMapping()
-    public List<Reservation> selecionarTodos() {
-        return reservationService.selecionarTodos();
-    }
-
-
     @PostMapping()
     public ResponseEntity<Object> createReservation(@RequestParam Long roomId, @Valid @RequestBody Reservation reservationDetails , BindingResult result) {
         List<String> errors;
@@ -36,27 +30,10 @@ public class ReservationController {
             reservationService.createReservation(roomId, reservationDetails);
         }catch (EntityNotFoundException e) {
             return ResponseEntity.status(404).body(e.getMessage());
+        } catch(IllegalArgumentException e){
+            return ResponseEntity.status(400).body(e.getMessage());
         }
+
         return ResponseEntity.ok().body("Reserva criada!");
     }
-
-    //criar rota que recebe varias reservas, reservas max: 5dias, validar se esta dentro de 30 dias
-
-//    @PostMapping()
-//    @Operation(summary = "Insere as reservas", description = "Insere as reservas na lista")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Reservas inseridas com sucesso",
-//                    content = @Content(mediaType = "application/json",
-//                            schema = @Schema(implementation = Reservation.class))),
-//            @ApiResponse(responseCode = "204", description = "Não foi possível adicionar a reserva", content = @Content)
-//    })
-//    public ResponseEntity<List<Reservation>> createManyReservations(@RequestBody List<Reservation> reservations) {
-//        List<Reservation> savedReservations = reservationService.createManyReservations(reservations);
-//
-//        if (savedReservations.isEmpty()) {
-//            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(savedReservations);
-//        } else {
-//            return ResponseEntity.status(HttpStatus.CREATED).body(savedReservations);
-//        }
-//    }
 }
